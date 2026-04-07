@@ -5,8 +5,8 @@ export default function Display () {
 
     // or todos for a list 
     return (
-        <>
-            
-        </>
+        <div>
+            <h1>Test</h1>
+        </div>
     )
 }

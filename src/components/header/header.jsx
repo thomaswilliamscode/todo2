@@ -1,0 +1,12 @@
+
+
+export default function Header () {
+    return (
+        <nav>
+            <ul>
+                <li>Home</li>
+                <li>Focus Mode</li>
+            </ul>
+        </nav>
+    )
+}
