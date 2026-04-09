@@ -7,3 +7,9 @@
   flex-wrap: wrap; /* allow header to take its own row */
   align-items: stretch;
 }
+
+
+.outlet-wrapper {
+  border: 1px solid red;
+  width: 84%;
+}
