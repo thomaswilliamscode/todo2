@@ -13,7 +13,6 @@ export default function Layout() {
       <div id='layout'>
         <Sidebar />
         <div className='outlet-wrapper'>
-          <p>test</p>
           <Outlet />
         </div>
       </div>

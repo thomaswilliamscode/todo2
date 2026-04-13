@@ -1,20 +1,21 @@
 import { useParams } from 'react-router-dom';
-import { getListAndTodos } from './helpers'
+import { getData } from '../db-logic/db-logic'
 import './folderPage.css'
+import Todos from '../todos/todos'
 
 import { useState, useEffect } from 'react'
 
 
 export default function FolderPage ( ){
+    const type = 'lists'
     const [list, setList] = useState([])
     const { id: folderId } = useParams();
 
     useEffect ( () => {
-        console.log(list)
         if (list.length === 0) {
             const listData = async () => {
                 try {
-                    const data = await getListAndTodos()
+                    const data = await getData(type)
                     setList(data)
                     localStorage.setItem('lists', JSON.stringify(data))
                 } catch (err) {
@@ -30,19 +31,25 @@ export default function FolderPage ( ){
     }, [])
 
     const filtered = list.filter( (list) => {
-        const {listId, name, folder_id} = list
+        const {folder_id} = list
         return folder_id === folderId
     })
     return (
-        <>
+        <div>
             {list && filtered.map( (list) => {
-                const {listId, name, folder_id} = list
+                const {id: listId, name, folder_id} = list
                 return (
-                    <>
-                        <li className='list-name' key={listId}>{name}</li>
-                    </>
+                    <div key={name}>
+                        <div className='list-name'>
+                            <h1>{name}</h1>
+                        </div>
+                        <div>
+                            <Todos listId={listId}/>
+                        </div>
+                    </div>
                 )
-            })}
-        </>
+            }
+            )}
+        </div>
     )
 }
