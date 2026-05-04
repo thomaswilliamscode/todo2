@@ -6,10 +6,12 @@
   overflow-x: hidden;
   flex-wrap: wrap; /* allow header to take its own row */
   align-items: stretch;
+  box-sizing: border-box;
 }
 
 
 .outlet-wrapper {
   border: 1px solid red;
-  width: 84%;
+  width: 70%;
+  box-sizing: border-box;
 }
