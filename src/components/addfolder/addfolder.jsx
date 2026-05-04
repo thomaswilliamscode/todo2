@@ -4,7 +4,7 @@ export default function AddFolder() {
 
   function formSubmit(e) {
     e.preventDefault()
-    console.log('tessssssssssssst')
+    
   }
     return (
         <div>
