@@ -1,10 +1,10 @@
-// import { formSubmit } from './helpers'
+import { formSubmit } from './helpers'
 
 export default function AddFolder() {
 
   function formSubmit(e) {
     e.preventDefault()
-    console.log('we submitted fam')
+    console.log('tessssssssssssst')
   }
     return (
         <div>
