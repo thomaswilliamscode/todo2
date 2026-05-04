@@ -1,6 +1,10 @@
 import { formSubmit } from './helpers'
 
 export default function AddFolder() {
+
+  function formSubmit(e) {
+    e.preventDefault()
+  }
     return (
         <div>
             <form onSubmit={(e) => formSubmit}>
