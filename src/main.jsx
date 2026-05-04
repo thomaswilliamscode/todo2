@@ -3,11 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import FolderPage from './components/folderPage/folderPage'
-import Add from './components/add-folder-or-list/add-folder-or-list'
 import Inbox from './components/inbox/inbox'
 import Focus from './components/focus/focus'
 import Error from './components/error/error'
 import Layout from './components/layout/layout'
+import AddFolder from './components/addfolder/addfolder'
+import AddList from './components/addlist/addlist'
 
 
 const router = createBrowserRouter([
@@ -16,8 +17,12 @@ const router = createBrowserRouter([
     element: <Layout />,
     children:[
       {
-        path: '/',
-        element: <Add />,
+        path: '/addfolder',
+        element: <AddFolder />,
+      },
+      {
+        path: '/addlist',
+        element: <AddList />,
       },
       {
         path: '/inbox',
