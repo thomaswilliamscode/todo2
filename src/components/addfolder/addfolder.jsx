@@ -1,13 +1,14 @@
-import { formSubmit } from './helpers'
+// import { formSubmit } from './helpers'
 
 export default function AddFolder() {
 
   function formSubmit(e) {
     e.preventDefault()
+    console.log('we submitted fam')
   }
     return (
         <div>
-            <form onSubmit={(e) => formSubmit}>
+            <form onSubmit={formSubmit}>
                 <input type='text' placeholder='Folder Name'/>
                 <input type='submit' value='Submit'/>
             </form>
