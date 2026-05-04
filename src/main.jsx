@@ -7,8 +7,8 @@ import Inbox from './components/inbox/inbox'
 import Focus from './components/focus/focus'
 import Error from './components/error/error'
 import Layout from './components/layout/layout'
-import AddFolder from '../components/addfolder/addfolder'
-import AddList from '../components/addlist/addlist'
+import AddFolder from './components/addfolder/addfolder'
+import AddList from './components/addlist/addlist'
 
 
 const router = createBrowserRouter([
