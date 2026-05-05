@@ -12,7 +12,10 @@ export default function AddFolder() {
     return (
         <div>
             <form onSubmit={formSubmit}>
-                <input type='text' placeholder='Folder Name'/>
+                <input type='text' 
+                  value={folderName}
+                  onChange={(e) => setFolderName(e.target.value)}
+                  placeholder='Folder Name'/>
                 <input type='submit' value='Submit'/>
             </form>
         </div>
