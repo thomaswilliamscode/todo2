@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react"
 
 const AppContext = createContext()
 
-export function folderProvider({ children }) {
+export function FolderProvider({ children }) {
   const [folders, setFolders] = useState([])
 
   return (
