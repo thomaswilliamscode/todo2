@@ -1,18 +1,20 @@
 import { useState } from 'react'
-import { pushData } from '../db-logic/db-logic'
+import { pushData, maxPosition } from '../db-logic/db-logic'
 
 const table = 'folders'
 
 export default function AddFolder() {
   const [ folderName, setFolderName ] = useState('')
-  function formSubmit (e) {
+  async function formSubmit (e) {
     e.preventDefault()
     // send folder name to database
     const newData = {
       name: folderName,
       position: 0
     }
-    pushData(newData, table)
+    lex pos = await maxPosition()
+    console.log(pos)
+    // pushData(newData, table)
     // reset folderName to empty 
     setFolderName('')
   }
