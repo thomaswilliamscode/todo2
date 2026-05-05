@@ -13,7 +13,7 @@ export default function AddFolder() {
       name: folderName,
       position: pos.position + 1
     }
-    // pushData(newData, table)
+    await pushData(newData, table)
     // reset folderName to empty 
     setFolderName('')
   }
