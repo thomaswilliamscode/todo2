@@ -8,12 +8,11 @@ export default function AddFolder() {
   async function formSubmit (e) {
     e.preventDefault()
     // send folder name to database
+    let pos = await maxPosition(table)
     const newData = {
       name: folderName,
-      position: 0
+      position: pos.position + 1
     }
-    let pos = await maxPosition(table)
-    console.log(pos)
     // pushData(newData, table)
     // reset folderName to empty 
     setFolderName('')
