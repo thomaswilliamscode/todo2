@@ -6,7 +6,11 @@ export default function AddFolder() {
   function formSubmit (e) {
     e.preventDefault()
     // send folder name to database
-    pushData(fodlerName)
+    const newData = {
+      name: folderName,
+      position: 0
+    }
+    pushData(newData)
     // reset folderName to empty 
     setFolderName('')
   }
