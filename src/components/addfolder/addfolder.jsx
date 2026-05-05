@@ -12,7 +12,7 @@ export default function AddFolder() {
       name: folderName,
       position: 0
     }
-    let pos = await maxPosition()
+    let pos = await maxPosition(table)
     console.log(pos)
     // pushData(newData, table)
     // reset folderName to empty 
