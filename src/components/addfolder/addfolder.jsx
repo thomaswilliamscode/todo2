@@ -18,7 +18,7 @@ export default function AddFolder() {
     // reset folderName to empty 
     setFolderName('')
     // get new folder data 
-    await getData(table)
+    localStorage.removeItem("folders")
   }
     return (
         <div>
