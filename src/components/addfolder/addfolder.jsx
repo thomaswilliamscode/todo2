@@ -14,6 +14,7 @@ export default function AddFolder() {
       name: folderName,
       position: position + 1
     }
+    console.log(posObj)
     await pushData(newData, table)
     // reset folderName to empty 
     setFolderName('')
