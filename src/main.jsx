@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { FolderProvider } from "./context/folderProvider"
 import FolderPage from './components/folderPage/folderPage'
 import Inbox from './components/inbox/inbox'
 import Focus from './components/focus/focus'
@@ -48,8 +47,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <FolderProvider>
-      <RouterProvider router={router} />
-    </FolderProvider>
+    <RouterProvider router={router}/>
   </StrictMode>,
 )

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { pushData, maxPosition, getData } from '../db-logic/db-logic'
+import { pushData, maxPosition } from '../db-logic/db-logic'
 
 const table = 'folders'
 
@@ -17,8 +17,6 @@ export default function AddFolder() {
     await pushData(newData, table)
     // reset folderName to empty 
     setFolderName('')
-    // get new folder data 
-    localStorage.removeItem("folders")
   }
     return (
         <div>

@@ -56,6 +56,6 @@ export async function  maxPosition (table) {
 
     if(error) throw error
 
-    return data
+    console.log(data)
 }
 
