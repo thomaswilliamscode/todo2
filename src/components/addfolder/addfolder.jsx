@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { pushData } from '../db-logic/db-logic'
 
+const type = 'folder'
+
 export default function AddFolder() {
   const [ folderName, setFolderName ] = useState('')
   function formSubmit (e) {
@@ -10,7 +12,7 @@ export default function AddFolder() {
       name: folderName,
       position: 0
     }
-    pushData(newData)
+    pushData(newData, type)
     // reset folderName to empty 
     setFolderName('')
   }
