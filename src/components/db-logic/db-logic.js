@@ -20,7 +20,7 @@ export async function getData (type, id) {
 
 }
 
-export async function pushData(addData, type) {
+export async function pushData(addData, table) {
     const { name, position } = addData
 
     let payload = {name, position }
@@ -34,7 +34,7 @@ export async function pushData(addData, type) {
     }
 
     let query = supabase
-        .from(type)
+        .from(table)
         .insert([payload])
 
     const { data, error } = await query
