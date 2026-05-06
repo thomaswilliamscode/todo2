@@ -23,6 +23,18 @@ export default function SidebarData () {
             setFolders(JSON.parse(value))
         } 
         
+    }, [])
+
+    useEffect( () => {
+        if (getFolders === 'get') {
+            const fetchFolders = async () => {
+            const data = await getData(type);
+            setFolders(data)
+            localStorage.setItem('folders', JSON.stringify(data))
+            setGetFolders('got')
+            }
+        fetchFolders()
+        }
     }, [getFolders])
     
     return (

@@ -3,7 +3,7 @@ import { getData } from '../db-logic/db-logic'
 import './folderPage.css'
 import Todos from '../todos/todos'
 import { useContext, useState, useEffect } from 'react'
-import { ListContext } from '../../context/folderContext' 
+// import { ListContext } from '../../context/folderContext' 
 
 
 export default function FolderPage ( ){
