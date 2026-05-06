@@ -1,11 +1,13 @@
 import { supabase } from '../supabase/supabase'
-import { useState, useEffect } from 'react'
 import { getData } from '../db-logic/db-logic'
 import { NavLink } from "react-router-dom";
+import { useContext, useState, useEffect } from 'react'
+import { FolderContext } from '../../context/folderContext' 
 
 import './sidebarData.css'
 
 export default function SidebarData () {
+    const { getFolders, setGetFolders } = useContext(FolderContext)
     const type = 'folders'
     const [ folders, setFolders ] = useState([])
     useEffect( () => {
@@ -21,7 +23,7 @@ export default function SidebarData () {
             setFolders(JSON.parse(value))
         } 
         
-    }, [])
+    }, [getFolders])
     
     return (
         <>

@@ -1,6 +1,9 @@
 import { supabase } from '../supabase/supabase'
+import { useContext } from 'react'
+import { FolderContext } from '../../context/folderContext'
 
 export async function getData (type, id) {
+    const { getFolders, setGetFolders } = useContext(FolderContext)
 
     let query = supabase
         .from(type)
@@ -13,6 +16,8 @@ export async function getData (type, id) {
     }
 
     const { data, error } = await query
+
+    setGetFolders('got')
     
     if(error) throw error;
 

@@ -9,6 +9,7 @@ import Error from './components/error/error'
 import Layout from './components/layout/layout'
 import AddFolder from './components/addfolder/addfolder'
 import AddList from './components/addlist/addlist'
+import { FolderProvider } from './context/folderContext' 
 
 
 const router = createBrowserRouter([
@@ -47,6 +48,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <FolderProvider>
+      <RouterProvider router={router}/>
+    </FolderProvider>
   </StrictMode>,
 )

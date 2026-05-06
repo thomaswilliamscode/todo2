@@ -2,8 +2,8 @@ import { useParams } from 'react-router-dom';
 import { getData } from '../db-logic/db-logic'
 import './folderPage.css'
 import Todos from '../todos/todos'
-
-import { useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
+import { ListContext } from '../../context/folderContext' 
 
 
 export default function FolderPage ( ){
