@@ -10,6 +10,7 @@ import Layout from './components/layout/layout'
 import AddFolder from './components/addfolder/addfolder'
 import AddList from './components/addlist/addlist'
 import { FolderProvider } from './context/folderContext' 
+import { ListProvider } from './context/listContext' 
 
 
 const router = createBrowserRouter([
@@ -49,7 +50,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <FolderProvider>
+      <ListProvider>
       <RouterProvider router={router}/>
+      </ListProvider> 
     </FolderProvider>
   </StrictMode>,
 )
