@@ -9,7 +9,7 @@ import './sidebarData.css'
 export default function SidebarData () {
     const { getFolders, setGetFolders } = useContext(FolderContext)
     const type = 'folders'
-    const [ folders, setFolders ] = useState([])
+    const { folders, setFolders } = useContext(FolderContext)
     useEffect( () => {
         const value = localStorage.getItem('folders')
         if (!value) {

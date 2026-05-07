@@ -1,11 +1,13 @@
 import { useState, useContext } from 'react'
 import { pushData, maxPosition, getData } from '../db-logic/db-logic'
 import { ListContext } from '../../context/listContext'
+import { FolderContext } from '../../context/folderContext'
 
 const table = 'lists'
 
 export default function AddList() {
   const { getLists, setGetLists } = useContext(ListContext)
+  const { folders, setFolders } = useContext(FolderContext)
   const [ listName, setListName ] = useState('')
 
   async function formSubmit (e) {
@@ -30,9 +32,18 @@ export default function AddList() {
             <form onSubmit={formSubmit}>
                 <input type='text' 
                   value={listName}
-                  onChange={(e) => setListName(e.target.value)}
+                  onChange={(e) => setListName((e.target.value))}
                   placeholder='List Name'/>
                 <input type='submit' value='Submit'/>
+                <select onChange={(e)=> console.log('test: ', )}>
+                  {folders && folders.map( (folder) => {
+                    const { name, id} = folder;
+                    return (
+                      <option key={id} value={folder}>{name}</option>
+                    )  
+                  })}
+                  
+                </select>
             </form>
         </div>
     )
