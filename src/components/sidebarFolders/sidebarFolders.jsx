@@ -4,9 +4,9 @@ import { NavLink } from "react-router-dom";
 import { useContext, useState, useEffect } from 'react'
 import { FolderContext } from '../../context/folderContext' 
 
-import './sidebarData.css'
+import './sidebarFolders.css'
 
-export default function SidebarData () {
+export default function Sidebar () {
     const { getFolders, setGetFolders } = useContext(FolderContext)
     const type = 'folders'
     const { folders, setFolders } = useContext(FolderContext)

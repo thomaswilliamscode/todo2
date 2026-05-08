@@ -1,5 +1,5 @@
 import Inbox from '../inbox/inbox'
-import SidebarData from '../sidebarData/sidebarData'
+import SidebarFolders from '../sidebarFolders/sidebarFolders'
 import { Link } from 'react-router-dom'
 import './sidebar.css'
 import AddList from '../addlist/addlist'
