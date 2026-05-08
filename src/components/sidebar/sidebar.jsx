@@ -13,7 +13,7 @@ export default function Sidebar () {
                 <Link to='/addfolder'>Add Folder</Link>
             </div>
             <Link to='/inbox'>Inbox</Link>
-            <SidebarData />
+            <SidebarFolders />
         </div>
     )
 }

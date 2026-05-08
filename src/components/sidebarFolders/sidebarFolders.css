@@ -1,3 +1,7 @@
 li {
     list-style-type: none;
 }
+
+#sidebar-folder-div{
+    border: 1px solid red;
+}
