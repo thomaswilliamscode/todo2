@@ -45,16 +45,16 @@ export default function SidebarFolders () {
                 return (
                     <div key={id} id='sidebar-folder-div'>
                         <NavLink
-                            
+                            key ={id}
                             to={`/folder/${id}`}
                             end
                             className={({ isActive }) =>
                             isActive ? "sidebar-folder active" : "sidebar-folder"
                             }
                         >
-                            <li key ={id}>{name}</li>
+                            <li>{name}</li>
                         </NavLink>
-                        <SidebarLists />
+                        <SidebarLists info={info}/>
                     </div>
                     
                 )

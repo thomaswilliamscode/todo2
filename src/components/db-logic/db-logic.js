@@ -9,7 +9,7 @@ export async function getData (type, id) {
 
         //if id exists add this 
     if (id !== undefined && id !== null) {
-        query = query.eq('list_id', id)
+        query = query.eq('folder_id', id)
     }
 
     const { data, error } = await query
