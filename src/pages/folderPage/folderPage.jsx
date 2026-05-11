@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import { getData } from '../db-logic/db-logic'
+import { getData } from '../../db-logic/db-logic'
 import './folderPage.css'
-import Todos from '../todos/todos'
+import Todos from '../../components/todos/todos'
 import { useContext, useState, useEffect } from 'react'
 // import { ListContext } from '../../context/folderContext' 
 

@@ -1,5 +1,5 @@
 import { supabase } from '../supabase/supabase'
-import { getData } from '../db-logic/db-logic'
+import { getData } from '../../db-logic/db-logic'
 import { NavLink } from "react-router-dom";
 import { useContext, useState, useEffect } from 'react'
 import { FolderContext } from '../../context/folderContext' 

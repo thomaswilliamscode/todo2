@@ -1,4 +1,4 @@
-import { supabase } from '../supabase/supabase'
+import { supabase } from '../components/supabase/supabase'
 
 export async function getData (type, id) {
 
@@ -8,8 +8,14 @@ export async function getData (type, id) {
         .order('position', {ascending: true})
 
         //if id exists add this 
-    if (id !== undefined && id !== null) {
+    if (id !== undefined && id !== null && type === 'folders') {
+        query = query.eq('id', id)
+    }
+    if (id !== undefined && id !== null && type === 'lists') {
         query = query.eq('folder_id', id)
+    }
+    if (id !== undefined && id !== null && type === 'todos') {
+        query = query.eq('list_id', id)
     }
 
     const { data, error } = await query

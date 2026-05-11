@@ -2,7 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import FolderPage from './components/folderPage/folderPage'
+import FolderPage from './pages/folderPage/folderPage'
+import ListPage from './pages/listPage/listPage'
 import Inbox from './components/inbox/inbox'
 import Focus from './components/focus/focus'
 import Error from './components/error/error'
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: '/folder/:id',
         element: <FolderPage />,
+      },
+      {
+        path: '/list/:id',
+        element: <ListPage />,
       },
         
     ]

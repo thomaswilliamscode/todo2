@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
-import { pushData, maxPosition, getData } from '../db-logic/db-logic'
+import { pushData, maxPosition, getData } from '../../db-logic/db-logic'
 import { ListContext } from '../../context/listContext'
 import { FolderContext } from '../../context/folderContext'
 

@@ -1,7 +1,8 @@
 import './sidebarLists.css'
-import {useState, useEffect} from 'react'
-import { getData } from '../db-logic/db-logic'
+import {useState, useEffect, useContext} from 'react'
+import { getData } from '../../db-logic/db-logic'
 import { NavLink } from "react-router-dom";
+import {ListContext} from '../../context/listContext'
 
 export default function SidebarLists (props) {
     const [ lists, setLists ] = useState([])
