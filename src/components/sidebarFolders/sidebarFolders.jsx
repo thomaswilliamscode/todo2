@@ -8,6 +8,7 @@ import SidebarLists from '../sidebarLists/sidebarLists'
 import './sidebarFolders.css'
 
 export default function SidebarFolders () {
+    const [ hidden,isHidden ] = useState(true)
     const { getFolders, setGetFolders } = useContext(FolderContext)
     const type = 'folders'
     const { folders, setFolders } = useContext(FolderContext)
@@ -42,19 +43,21 @@ export default function SidebarFolders () {
         <>
             {folders && folders.map( (info) => {
                 let { name, id } = info
+                const isHidden = true
                 return (
                     <div key={id} id='sidebar-folder-div'>
                         <NavLink
-                            key ={id}
                             to={`/folder/${id}`}
                             end
                             className={({ isActive }) =>
                             isActive ? "sidebar-folder active" : "sidebar-folder"
                             }
                         >
+                            <div><i class="fa-solid fa-chevron-down"></i></div>
+                            
                             <li>{name}</li>
-                        </NavLink>
-                        <SidebarLists info={info}/>
+                      </NavLink>
+                        <SidebarLists info={info} isHidden={isHidden}/>
                     </div>
                     
                 )
