@@ -14,7 +14,6 @@ export default function SidebarLists (props) {
             const lists = await getData(table, id)
             lists.map ( (list) => {
                 const {id: list_id, } = list
-                console.log(list)
             }) 
             setLists(lists)
 
@@ -25,7 +24,6 @@ export default function SidebarLists (props) {
         
         
     }, [id])
-    console.log(listIds)
     return (
         <ul id='list-container'>
             {lists && lists.map( (list) => {

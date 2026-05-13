@@ -8,10 +8,11 @@ import SidebarLists from '../sidebarLists/sidebarLists'
 import './sidebarFolders.css'
 
 export default function SidebarFolders () {
-    const [ hidden,isHidden ] = useState(true)
+    
     const { getFolders, setGetFolders } = useContext(FolderContext)
     const type = 'folders'
     const { folders, setFolders } = useContext(FolderContext)
+    const [ openFolder, setOpenFolder ] = useState(null)
     useEffect( () => {
         const value = localStorage.getItem('folders')
         if (!value) {
@@ -38,14 +39,27 @@ export default function SidebarFolders () {
         fetchFolders()
         }
     }, [getFolders])
+
+    function toggleHidden (id) {
+        setOpenFolder( prev => 
+            prev === id ? null : id
+        )
+        
+    }
     
     return (
         <>
             {folders && folders.map( (info) => {
                 let { name, id } = info
-                const isHidden = true
                 return (
                     <div key={id} id='sidebar-folder-div'>
+                        <div></div>
+                        <i className="fa-solid fa-chevron-down"
+                            onClick={() => toggleHidden(id)}
+                        ></i>
+
+                        <div className='folder-row'>
+                        
                         <NavLink
                             to={`/folder/${id}`}
                             end
@@ -53,11 +67,18 @@ export default function SidebarFolders () {
                             isActive ? "sidebar-folder active" : "sidebar-folder"
                             }
                         >
-                            <div><i class="fa-solid fa-chevron-down"></i></div>
+                            
                             
                             <li>{name}</li>
                       </NavLink>
-                        <SidebarLists info={info} isHidden={isHidden}/>
+                      {openFolder === id && <div
+                        className='list-container'
+                        >
+                            <SidebarLists info={info}/>
+                        </div>}
+                        
+                        </div>
+                        <div></div>
                     </div>
                     
                 )
