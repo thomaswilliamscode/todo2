@@ -12,7 +12,7 @@ export default function SidebarFolders () {
     const { getFolders, setGetFolders } = useContext(FolderContext)
     const type = 'folders'
     const { folders, setFolders } = useContext(FolderContext)
-    const [ openFolder, setOpenFolder ] = useState(null)
+    const [ openFolders, setOpenFolders ] = useState(new Set())
     useEffect( () => {
         const value = localStorage.getItem('folders')
         if (!value) {
@@ -40,11 +40,34 @@ export default function SidebarFolders () {
         }
     }, [getFolders])
 
-    function toggleHidden (id) {
-        setOpenFolder( prev => 
-            prev === id ? null : id
-        )
+    function toggleHidden (info) {
+        setOpenFolders( prev => {
+            const updated = new Set(prev)
+            // if openFolders contains the obj, remove it
+            if(updated.has(info.id)) {
+                updated.delete(info.id)
+            } else {
+                //if it doesnt, then add it
+                updated.add(info.id)
+            }
+
+            return updated
+        })
         
+        
+    }
+
+    function displayOpenFolders (folderId) {
+        const filtered = folders.filter( (folderObj) => {
+            console.log(openFolders.has(folderObj))
+            console.log(openFolders)
+            return openFolders.has(folderObj)
+        })
+
+        return filtered.map( (obj) => {
+            console.log(obj)
+        })
+                        
     }
     
     return (
@@ -55,7 +78,7 @@ export default function SidebarFolders () {
                     <div key={id} id='sidebar-folder-div'>
                         <div></div>
                         <i className="fa-solid fa-chevron-down"
-                            onClick={() => toggleHidden(id)}
+                            onClick={() => toggleHidden(info)}
                         ></i>
 
                         <div className='folder-row'>
@@ -71,11 +94,9 @@ export default function SidebarFolders () {
                             
                             <li>{name}</li>
                       </NavLink>
-                      {openFolder === id && <div
-                        className='list-container'
-                        >
-                            <SidebarLists info={info}/>
-                        </div>}
+                      {openFolders.has(id) && (
+                        <SidebarLists info={info}/>
+                      )}
                         
                         </div>
                         <div></div>
