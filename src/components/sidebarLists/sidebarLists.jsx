@@ -10,6 +10,7 @@ export default function SidebarLists (props) {
     const {id, name, position} = props.info
     const table = 'lists'
     useEffect( () => {
+        
         async function fetchData() {
             const lists = await getData(table, id)
             lists.map ( (list) => {
@@ -18,8 +19,16 @@ export default function SidebarLists (props) {
             setLists(lists)
 
             
+
+            
         }
+        // if no local storage then fetch list data
+
         fetchData()
+
+            // save listData to local storage
+
+        // if local storage, pull from local storage. 
 
         
         
