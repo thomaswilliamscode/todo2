@@ -12,20 +12,12 @@ export default function SidebarFolders () {
     const { getFolders, setGetFolders } = useContext(FolderContext)
     const type = 'folders'
     const { folders, setFolders } = useContext(FolderContext)
+    const [ allFolders, setAllFolders ] = useState([])
     const [ openFolders, setOpenFolders ] = useState(new Set())
+
     useEffect( () => {
-        const value = localStorage.getItem('folders')
-        if (!value) {
-            const fetchFolders = async () => {
-            const data = await getData(type);
-            setFolders(data)
-            localStorage.setItem('folders', JSON.stringify(data))
-            }
-        fetchFolders()
-        } else {
-            setFolders(JSON.parse(value))
-        } 
-        
+        let localFolders = JSON.parse(localStorage.getItem('folders'))
+        setAllFolders(localFolders)
     }, [])
 
     useEffect( () => {
@@ -72,7 +64,7 @@ export default function SidebarFolders () {
     
     return (
         <>
-            {folders && folders.map( (info) => {
+            {folders && allFolders.map( (info) => {
                 let { name, id } = info
                 return (
                     <div key={id} id='sidebar-folder-div'>
