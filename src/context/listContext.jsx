@@ -4,9 +4,9 @@ export const ListContext = createContext()
 
 export function ListProvider ({children}) {
     const [ getLists, setGetLists ] = useState('got')
-    const [ listIds, setListIds ] = useState({})
+    const [ lists, setLists ] = useState({})
     return (
-        <ListContext.Provider value={{listIds, setListIds}}>
+        <ListContext.Provider value={{lists, setLists}}>
             {children}
         </ListContext.Provider>
     )

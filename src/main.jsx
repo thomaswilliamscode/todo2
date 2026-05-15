@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -12,6 +12,10 @@ import AddFolder from './components/addfolder/addfolder'
 import AddList from './components/addlist/addlist'
 import { FolderProvider } from './context/folderContext' 
 import { ListProvider } from './context/listContext' 
+import { TodosProvider } from './context/todosContext' 
+
+
+
 
 
 const router = createBrowserRouter([
@@ -56,7 +60,9 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <FolderProvider>
       <ListProvider>
-      <RouterProvider router={router}/>
+        <TodosProvider>
+          <RouterProvider router={router}/>
+        </TodosProvider>
       </ListProvider> 
     </FolderProvider>
   </StrictMode>,
