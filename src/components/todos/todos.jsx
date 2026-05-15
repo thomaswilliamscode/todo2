@@ -5,7 +5,9 @@ import {TodosContext} from '../../context/todosContext'
 
 import './todos.css'
 
-export default function Todos () {
+export default function Todos ({props}) {
+    // const {} = props
+    console.log(props)
     const { todos, SetTodos } = useContext(TodosContext)
     const { id } = useParams()
     return (

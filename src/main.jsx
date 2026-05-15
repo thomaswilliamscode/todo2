@@ -13,6 +13,7 @@ import AddList from './components/addlist/addlist'
 import { FolderProvider } from './context/folderContext' 
 import { ListProvider } from './context/listContext' 
 import { TodosProvider } from './context/todosContext' 
+import { InboxProvider } from './context/inboxContext' 
 
 
 
@@ -61,7 +62,9 @@ createRoot(document.getElementById('root')).render(
     <FolderProvider>
       <ListProvider>
         <TodosProvider>
-          <RouterProvider router={router}/>
+          <InboxProvider>
+            <RouterProvider router={router}/>
+          </InboxProvider>
         </TodosProvider>
       </ListProvider> 
     </FolderProvider>
