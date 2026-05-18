@@ -7,8 +7,21 @@ import {ListContext} from '../../context/listContext'
 
 export default function ListPage() {
     const { todos, SetTodos } = useContext(TodosContext)
-    const { lists, setLists } = useContext(ListContext)
+    const { lists, setLists, setGetLists, getLists } = useContext(ListContext)
     const { id } = useParams()
+
+    useEffect( () => {
+        if(getLists === 'get') {
+            async function fetchLists() {
+                const table = 'lists'
+                let listData = await getData(table)
+                console.log('in the effect bro', listData)
+                setLists(listData)
+            }
+            fetchLists()
+            setGetLists('got')
+        }
+    }, [getLists])
 
     if (!todos || !lists) {
         return <div>Loading...</div>

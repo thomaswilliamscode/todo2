@@ -7,34 +7,24 @@ import { ListContext } from '../../context/listContext'
 
 
 export default function FolderPage ( ){
-    const { lists } = useContext(ListContext)
+    const { lists, setLists } = useContext(ListContext)
     const type = 'lists'
     const [list, setList] = useState([])
     const { id: folderId } = useParams();
 
-    useEffect ( () => {
-        if (list.length === 0) {
-            const listData = async () => {
-                try {
-                    const data = await getData(type)
-                    setList(data)
-                    localStorage.setItem('lists', JSON.stringify(data))
-                } catch (err) {
-                    console.error(err)
-                }
-            } 
-            listData()
-        } else {
-            const value = localStorage.getItem('lists')
-            setList(JSON.parse(value))
-        }
-
-    }, [])
-
-    const filtered = list.filter( (list) => {
-        const {folder_id} = list
-        return folder_id === folderId
+    let filtered = lists.filter( (list) => {
+        return list.folder_id === folderId
     })
+
+    useEffect ( () => {
+        filtered = lists.filter( (list) => {
+        return list.folder_id === folderId
+        })
+    }, [lists])
+
+
+    
+
     return (
         <div>
             {list && filtered.map( (list) => { 

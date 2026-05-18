@@ -58,7 +58,7 @@ export default function SidebarFolders () {
     
     return (
         <>
-            {folders && folders.map( (info) => {
+            {folders.length > 0 && folders.map( (info) => {
                 let { name, id } = info
                 return (
                     <div key={id} id='sidebar-folder-div'>

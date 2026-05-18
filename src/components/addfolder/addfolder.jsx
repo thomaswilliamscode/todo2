@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react'
-import { pushData, maxPosition } from '../../db-logic/db-logic'
+import { pushData, maxPosition, getData } from '../../db-logic/db-logic'
 import { FolderContext } from '../../context/folderContext'
 
 const table = 'folders'
 
 export default function AddFolder() {
-  const { getFolders, setGetFolders } = useContext(FolderContext)
+  const { getFolders, setGetFolders, setFolders } = useContext(FolderContext)
   const [ folderName, setFolderName ] = useState('')
 
   async function formSubmit (e) {
@@ -19,9 +19,9 @@ export default function AddFolder() {
     const {position} = posObj
     newData.position = position + 1;
     await pushData(newData, table)
-    // reset folderName to empty 
-    setGetFolders('get')
-
+    let newFolders = await getData(table)
+    setFolders(newFolders)
+    localStorage.setItem('folders', JSON.stringify(newFolders))
   }
     return (
         <div>

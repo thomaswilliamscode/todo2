@@ -10,7 +10,12 @@ export default function SidebarLists (props) {
     const {id, name, position} = props.info
     const table = 'lists'
 
-    const listFilter = lists.filter( (list) => list.folder_id === id)
+    let listFilter = lists.filter( (list) => list.folder_id === id)
+
+    useEffect( () => {
+        listFilter = lists.filter( (list) => list.folder_id === id)
+    }, [lists])
+
     return (
         <ul id='list-container'>
             {lists && listFilter.map( (list) => {
