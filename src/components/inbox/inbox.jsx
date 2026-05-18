@@ -1,7 +1,21 @@
+import { useContext } from 'react'
+import {InboxContext} from '../../context/inboxContext'
+
 export default function Inbox () {
+    const {inbox} = useContext(InboxContext)
     return (
-        <>
-            <div>Inbox</div>
-        </>
+        <div>
+            <h1>Inbox</h1>
+            <ul>
+            {inbox && inbox.map( (todo) => {
+                const { name, id } = todo
+                console.log(todo)
+                return (
+                    <li key={id}>{name}</li>
+                )
+                
+})}
+           </ul>
+        </div>
     )
 }
