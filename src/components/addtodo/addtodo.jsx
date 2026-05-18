@@ -33,8 +33,9 @@ export default function AddTodo () {
         
         await pushData(newTodo, table)
         // get data from api again
-        const newTodosTodos = await getData(table)
+        const newTodos = await getData(table)
         setTodos(newTodos)
+        localStorage.setItem('todos', JSON.stringify(newTodos))
 
     }
 
