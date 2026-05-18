@@ -1,4 +1,4 @@
-import {getData} from '../db-logic/db-logic'
+import {getData} from '../../db-logic/db-logic'
 import {useState, useEffect } from 'react'
 
 import './todos.css'

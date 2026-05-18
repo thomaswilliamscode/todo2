@@ -1,0 +1,30 @@
+li {
+    list-style-type: none;
+}
+
+.active {
+    border: 1px solid red;
+}
+
+#sidebar-folder-div{
+    display: flex;
+}
+
+.fa-solid {
+    /* border: 1px solid red; */
+
+}
+.sidebar-folder {
+    /* border: 1px solid red; */
+    display: flex;
+    gap: 1rem;
+}
+
+.list-container{
+    
+}
+
+.hidden{
+    display: none;
+    border: 1px solid yellow;
+}
