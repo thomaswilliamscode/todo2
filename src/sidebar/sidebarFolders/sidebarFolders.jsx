@@ -1,4 +1,4 @@
-import { supabase } from '../supabase/supabase'
+import { supabase } from '../../components/supabase/supabase'
 import { getData } from '../../db-logic/db-logic'
 import { NavLink } from "react-router-dom";
 import { useContext, useState, useEffect } from 'react'

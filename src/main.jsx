@@ -8,8 +8,7 @@ import Inbox from './components/inbox/inbox'
 import Focus from './components/focus/focus'
 import Error from './components/error/error'
 import Layout from './components/layout/layout'
-import AddFolder from './components/addfolder/addfolder'
-import AddList from './components/addlist/addlist'
+import AddPage from './pages/addPage/addPage'
 import { FolderProvider } from './context/folderContext' 
 import { ListProvider } from './context/listContext' 
 import { TodosProvider } from './context/todosContext' 
@@ -25,12 +24,8 @@ const router = createBrowserRouter([
     element: <Layout />,
     children:[
       {
-        path: '/addfolder',
-        element: <AddFolder />,
-      },
-      {
-        path: '/addlist',
-        element: <AddList />,
+        path: '/addpage',
+        element: <AddPage />,
       },
       {
         path: '/inbox',
