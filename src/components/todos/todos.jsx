@@ -5,14 +5,13 @@ import {TodosContext} from '../../context/todosContext'
 
 import './todos.css'
 
-export default function Todos ({props}) {
-    // const {} = props
-    console.log(props)
+export default function Todos ({listId}) {
     const { todos, SetTodos } = useContext(TodosContext)
     const { id } = useParams()
+    const filteredTodos = todos.filter( (todo) => todo.list_id === listId)
     return (
         <ul className='ul-container'>
-            { todos && todos.map( (todo) => {
+            { todos && filteredTodos.map( (todo) => {
                 return (
                     <li id='todo' key={todo.id}>
                         {todo.name}

@@ -31,7 +31,7 @@ export default function useFirstRender() {
             // api call for inbox
             table = 'inbox'
             const inbox = await getData(table)  
-            setTodos(inbox)
+            setInbox(inbox)
         }
         loadData()
     }, [])

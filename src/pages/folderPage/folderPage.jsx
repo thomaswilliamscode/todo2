@@ -37,7 +37,7 @@ export default function FolderPage ( ){
     })
     return (
         <div>
-            {list && filtered.map( (list) => {
+            {list && filtered.map( (list) => { 
                 const {id: listId, name, folder_id} = list
                 return (
                     <div key={name}>
