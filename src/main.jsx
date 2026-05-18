@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -8,10 +8,14 @@ import Inbox from './components/inbox/inbox'
 import Focus from './components/focus/focus'
 import Error from './components/error/error'
 import Layout from './components/layout/layout'
-import AddFolder from './components/addfolder/addfolder'
-import AddList from './components/addlist/addlist'
+import AddPage from './pages/addPage/addPage'
 import { FolderProvider } from './context/folderContext' 
 import { ListProvider } from './context/listContext' 
+import { TodosProvider } from './context/todosContext' 
+import { InboxProvider } from './context/inboxContext' 
+
+
+
 
 
 const router = createBrowserRouter([
@@ -20,12 +24,8 @@ const router = createBrowserRouter([
     element: <Layout />,
     children:[
       {
-        path: '/addfolder',
-        element: <AddFolder />,
-      },
-      {
-        path: '/addlist',
-        element: <AddList />,
+        path: '/addpage',
+        element: <AddPage />,
       },
       {
         path: '/inbox',
@@ -56,7 +56,11 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <FolderProvider>
       <ListProvider>
-      <RouterProvider router={router}/>
+        <TodosProvider>
+          <InboxProvider>
+            <RouterProvider router={router}/>
+          </InboxProvider>
+        </TodosProvider>
       </ListProvider> 
     </FolderProvider>
   </StrictMode>,

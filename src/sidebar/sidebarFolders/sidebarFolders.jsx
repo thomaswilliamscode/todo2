@@ -1,4 +1,4 @@
-import { supabase } from '../supabase/supabase'
+import { supabase } from '../../components/supabase/supabase'
 import { getData } from '../../db-logic/db-logic'
 import { NavLink } from "react-router-dom";
 import { useContext, useState, useEffect } from 'react'
@@ -13,20 +13,6 @@ export default function SidebarFolders () {
     const type = 'folders'
     const { folders, setFolders } = useContext(FolderContext)
     const [ openFolders, setOpenFolders ] = useState(new Set())
-    useEffect( () => {
-        const value = localStorage.getItem('folders')
-        if (!value) {
-            const fetchFolders = async () => {
-            const data = await getData(type);
-            setFolders(data)
-            localStorage.setItem('folders', JSON.stringify(data))
-            }
-        fetchFolders()
-        } else {
-            setFolders(JSON.parse(value))
-        } 
-        
-    }, [])
 
     useEffect( () => {
         if (getFolders === 'get') {

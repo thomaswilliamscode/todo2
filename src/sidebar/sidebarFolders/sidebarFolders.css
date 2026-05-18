@@ -2,7 +2,7 @@ li {
     list-style-type: none;
 }
 
-.active {
+.sidebar-folder.active {
     border: 1px solid red;
 }
 

@@ -3,10 +3,11 @@ import { getData } from '../../db-logic/db-logic'
 import './folderPage.css'
 import Todos from '../../components/todos/todos'
 import { useContext, useState, useEffect } from 'react'
-// import { ListContext } from '../../context/folderContext' 
+import { ListContext } from '../../context/listContext' 
 
 
 export default function FolderPage ( ){
+    const { lists } = useContext(ListContext)
     const type = 'lists'
     const [list, setList] = useState([])
     const { id: folderId } = useParams();
@@ -36,7 +37,7 @@ export default function FolderPage ( ){
     })
     return (
         <div>
-            {list && filtered.map( (list) => {
+            {list && filtered.map( (list) => { 
                 const {id: listId, name, folder_id} = list
                 return (
                     <div key={name}>
