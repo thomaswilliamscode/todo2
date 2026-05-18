@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import './layout.css'
 import Header from '../header/header.jsx'
-import Sidebar from '../sidebar/sidebar.jsx'
+import SidebarLayout from '../../sidebar/sidebarLayout/sidebarLayout.jsx'
 
 export default function Layout() {
   const [count, setCount] = useState(0)
@@ -11,7 +11,7 @@ export default function Layout() {
     <>
       <Header />
       <div id='layout'>
-        <Sidebar />
+        <SidebarLayout />
         <div className='outlet-wrapper'>
           <Outlet />
         </div>
