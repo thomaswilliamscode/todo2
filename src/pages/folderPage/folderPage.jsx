@@ -4,13 +4,14 @@ import './folderPage.css'
 import Todos from '../../components/todos/todos'
 import { useContext, useState, useEffect } from 'react'
 import { ListContext } from '../../context/listContext' 
+import AddIndividualTodo from '../../components/addIndividualTodo/addIndividualTodo'
 
 
 export default function FolderPage ( ){
     const { lists, setLists } = useContext(ListContext)
     const type = 'lists'
     const [list, setList] = useState([])
-    const { id: folderId } = useParams();
+    const { folderId } = useParams();
 
     let filtered = lists.filter( (list) => {
         return list.folder_id === folderId
@@ -37,6 +38,7 @@ export default function FolderPage ( ){
                         <div>
                             <Todos listId={listId}/>
                         </div>
+                        < AddIndividualTodo list={list}/>
                     </div>
                 )
             }

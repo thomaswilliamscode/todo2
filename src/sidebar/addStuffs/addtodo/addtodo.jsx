@@ -1,8 +1,8 @@
 import './addtodo.css'
 import { useContext, useState, useEffect } from 'react'
-import { ListContext } from '../../context/listContext'
-import { TodosContext } from '../../context/todosContext'
-import { pushData, maxPosition, getData } from '../../db-logic/db-logic'
+import { ListContext } from '../../../context/listContext'
+import { TodosContext } from '../../../context/todosContext'
+import { pushData, maxPosition, getData } from '../../../db-logic/db-logic'
 
 export default function AddTodo () {
     const { lists } = useContext(ListContext)

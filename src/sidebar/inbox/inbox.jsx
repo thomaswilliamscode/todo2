@@ -9,7 +9,6 @@ export default function Inbox () {
             <ul>
             {inbox && inbox.map( (todo) => {
                 const { name, id } = todo
-                console.log(todo)
                 return (
                     <li key={id}>{name}</li>
                 )

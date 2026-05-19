@@ -4,49 +4,55 @@ import {useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import {TodosContext} from '../../context/todosContext' 
 import {ListContext} from '../../context/listContext' 
+import AddIndividualTodo from '../../components/addIndividualTodo/addIndividualTodo'
 
 export default function ListPage() {
-    const { todos, SetTodos } = useContext(TodosContext)
-    const { lists, setLists, setGetLists, getLists } = useContext(ListContext)
-    const { id } = useParams()
-
-    useEffect( () => {
-        if(getLists === 'get') {
-            async function fetchLists() {
-                const table = 'lists'
-                let listData = await getData(table)
-                console.log('in the effect bro', listData)
-                setLists(listData)
-            }
-            fetchLists()
-            setGetLists('got')
-        }
-    }, [getLists])
+    const { todos, setTodos } = useContext(TodosContext)
+    const { lists, setLists, } = useContext(ListContext)
+    const { listId, folderId } = useParams()
 
     if (!todos || !lists) {
         return <div>Loading...</div>
     }
+    let id = ''
 
-    if (todos && lists) {
-        const filteredTodos = todos.filter( (todo) => todo.list_id === id)
-        const currentList = lists.find( (list) => list.id === id)
-        return (
-            <ul className='ul-container'>
-                <h1>{currentList?.name}</h1>
-                { todos && filteredTodos.map( (todo) => {
-                    return (
-                        <div key={todo.id}>
-                            <li id='todo'>
-                                {todo.name}
-                            </li>
-                        </div>
-                    )
-                })}
-            </ul>
+    if (listId) {
+        id = listId
+    } else {
+        id = folderId
+    }
 
-        
-        )
-    } 
+    let filteredTodos = todos.filter( (todo) => todo.list_id === id)
+    let currentList = lists.find( (list) => list.id === id)
+
+    useEffect( () => {
+        filteredTodos = todos.filter( (todo) => todo.list_id === id)
+        currentList = lists.find( (list) => list.id === id)
+    }, [todos])
+
+    useEffect( () => {
+        filteredTodos = todos.filter( (todo) => todo.list_id === id)
+        currentList = lists.find( (list) => list.id === id)
+    }, [])
+
+
+    return (
+        <ul className='ul-container'>
+            <h1>{currentList?.name}</h1>
+            { todos && filteredTodos.map( (todo) => {
+                return (
+                    <div key={todo.id}>
+                        <li id='todo'>
+                            {todo.name}
+                        </li>
+                    </div>
+                )
+            })}
+            <AddIndividualTodo list={currentList}/>
+        </ul>
+
+    
+    )
     
     
 }

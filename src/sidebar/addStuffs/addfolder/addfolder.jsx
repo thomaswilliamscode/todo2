@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
-import { pushData, maxPosition, getData } from '../../db-logic/db-logic'
-import { FolderContext } from '../../context/folderContext'
+import { pushData, maxPosition, getData } from '../../../db-logic/db-logic'
+import { FolderContext } from '../../../context/folderContext'
 
 const table = 'folders'
 
