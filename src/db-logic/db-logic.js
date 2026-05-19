@@ -57,9 +57,22 @@ export async function  maxPosition (table) {
         .select('position')
         .order('position', {ascending: false})
         .limit(1)
-        .single()
+        .maybeSingle()
 
     const { data, error} = await query
+
+    if(error) throw error
+
+    return data;
+}
+
+export async function deleteItem(table, id) {
+    const query = supabase
+        .from(table)
+        .delete()
+        .eq('id', id)
+
+    const { data, error } = await query
 
     if(error) throw error
 

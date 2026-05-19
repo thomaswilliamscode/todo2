@@ -25,7 +25,12 @@ export default function AddIndividualTodo({list}) {
         setInput('')
 
         // get maxPos from DB
-        const pos = await maxPosition(table)
+        let pos = await maxPosition(table)
+        if(pos === null){
+            pos = {
+                position: -1
+            }
+        }
 
         //add position to newTodo
         newTodo.position = pos.position + 1
@@ -35,6 +40,8 @@ export default function AddIndividualTodo({list}) {
 
         // get new todo info 
         const todoData = await getData(table)
+
+        console.log(todoData)
 
         // set newTodo info 
         setTodos(todoData)

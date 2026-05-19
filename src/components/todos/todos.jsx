@@ -2,6 +2,7 @@ import {getData} from '../../db-logic/db-logic'
 import {useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import {TodosContext} from '../../context/todosContext' 
+import Delete from '../delete/delete'
 
 import './todos.css'
 
@@ -15,6 +16,7 @@ export default function Todos ({listId}) {
                 return (
                     <li id='todo' key={todo.id}>
                         {todo.name}
+                        < Delete todoId={todo.id}/>
                     </li>
                 )
             })}
