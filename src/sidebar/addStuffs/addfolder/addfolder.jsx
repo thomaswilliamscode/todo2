@@ -16,6 +16,11 @@ export default function AddFolder() {
     }
     setFolderName('')
     let posObj = await maxPosition(table)
+    if (posObj === null) {
+      posObj = {
+        position: -1
+      }
+    }
     const {position} = posObj
     newData.position = position + 1;
     await pushData(newData, table)

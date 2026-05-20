@@ -2,44 +2,63 @@ import './addtodo.css'
 import { useContext, useState, useEffect } from 'react'
 import { ListContext } from '../../../context/listContext'
 import { TodosContext } from '../../../context/todosContext'
+import {InboxContext} from '../../../context/inboxContext'
 import { pushData, maxPosition, getData } from '../../../db-logic/db-logic'
 
 export default function AddTodo () {
     const { lists } = useContext(ListContext)
     const { todos, setTodos } = useContext(TodosContext)
+    const { inbox, setInbox } = useContext(InboxContext)
     const [ input, setInput ] = useState([])
     const [ activeList, setActiveList ] = useState('')
-    const [ inbox, setInbox ] = useState('inbox')
+    const [ displayLists, setDisplayLists ] = useState([])
 
     const localLists = JSON.parse(localStorage.getItem('lists'))
 
     useEffect( () => {
-        if(localLists.length > 0) {
-            const first = localLists[0]
-            setActiveList(first.id)
-        }
-        
-    }, [])
+        setDisplayLists([
+            { name: 'Inbox', list_Id: 'inbox'},
+            ...lists
+        ])
+        setActiveList('inbox')
+    }, [lists])
     
     async function handleSubmit(e) {
         e.preventDefault()
-        // add input to that list 
-        const table ='todos'
-        const newTodo={
-            name: input,
-            list_id: activeList,
+        let table = ''
+        let newTodo = {
+            name: input
         }
+        // add input to that list 
+        if (activeList === 'inbox') {
+            table = 'inbox'
+        } else {
+            table ='todos'
+            newTodo.list_id = activeList
+        }
+        
 
         // set input to empty 
         setInput('')
-        const pos = await maxPosition(table)
+        let pos = await maxPosition(table)
+        if(pos === null){
+            pos = {
+                position: -1
+            }
+        }
         newTodo.position = pos.position + 1
         
         await pushData(newTodo, table)
         // get data from api again
         const newTodos = await getData(table)
-        setTodos(newTodos)
-        localStorage.setItem('todos', JSON.stringify(newTodos))
+        if (activeList === 'inbox') {
+            setInbox(newTodos)
+            localStorage.setItem('inbox', JSON.stringify(newTodos))
+        } else {
+            setTodos(newTodos)
+            localStorage.setItem('todos', JSON.stringify(newTodos))
+        }
+        
 
     }
 
@@ -57,7 +76,7 @@ export default function AddTodo () {
             />
             <input type='submit'/>
             <select onChange={ (e) => setActiveList(e.target.value)}>
-                {lists && lists.map( (list) => {
+                {lists && displayLists.map( (list) => {
                     return (
                         <option key={list.id}
                         value={list.id}

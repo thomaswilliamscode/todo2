@@ -13,15 +13,14 @@ export default function AddList() {
 
   const localLists = JSON.parse(localStorage.getItem('folders'))
 
-  useEffect ( () => {
-    const first = localLists[0]
-    setActiveFolder(first.id) 
-  }, [])
 
-  useEffect ( () => {
-    
-    
-  }, [lists])
+    useEffect ( () => {
+      if (folders.length > 0) {
+        const first = folders[0]
+        setActiveFolder(first.id)
+      }
+      
+    }, [folders])
 
   async function formSubmit (e) {
     e.preventDefault()
@@ -32,6 +31,11 @@ export default function AddList() {
     }
     setListName('')
     let posObj = await maxPosition(table)
+    if (posObj === null) {
+      posObj = {
+        position: -1
+      }
+    }
     const {position} = posObj
     newData.position = position + 1;
     await pushData(newData, table)

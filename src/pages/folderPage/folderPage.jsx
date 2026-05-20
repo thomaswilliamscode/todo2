@@ -4,6 +4,7 @@ import './folderPage.css'
 import Todos from '../../components/todos/todos'
 import { useContext, useState, useEffect } from 'react'
 import { ListContext } from '../../context/listContext' 
+import { FolderContext } from '../../context/folderContext.jsx'
 import AddIndividualTodo from '../../components/addIndividualTodo/addIndividualTodo'
 import AddIndividualList from '../../components/addIndividualList/addIndividualList'
 import Delete from '../../components/delete/delete.jsx'
@@ -11,6 +12,7 @@ import Delete from '../../components/delete/delete.jsx'
 
 export default function FolderPage ( ){
     const { lists, setLists } = useContext(ListContext)
+    const { folders, setFolders } = useContext(FolderContext)
     const type = 'lists'
     const [list, setList] = useState([])
     const { folderId } = useParams();
@@ -30,7 +32,7 @@ export default function FolderPage ( ){
         
     }, [lists])
 
-    if (filtered.length !== 0) {
+    if (filtered.length !== 0 && folders.length !== 0) {
         return (
         <div>
             {list && filtered.map( (list) => { 
@@ -55,7 +57,7 @@ export default function FolderPage ( ){
             </div>
         </div>
     )
-    } else {
+    } else if (folders.length === 1) {
         const folders = JSON.parse(localStorage.getItem('folders'))
         let folder = folders.find( (folder) => folder.id === folderId)
         const {name} = folder
