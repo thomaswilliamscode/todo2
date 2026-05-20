@@ -17,6 +17,13 @@ export default function FolderPage ( ){
     const [list, setList] = useState([])
     const { folderId } = useParams();
 
+    const localFolders = JSON.parse(localStorage.getItem('folders'))
+    let folder = localFolders.find( (folder) => folder.id === folderId)
+
+    useEffect( () => {
+
+    }, [localFolders])
+
 
     let filtered = lists.filter( (list) => {
         return list.folder_id === folderId
@@ -57,9 +64,7 @@ export default function FolderPage ( ){
             </div>
         </div>
     )
-    } else if (folders.length === 1) {
-        const folders = JSON.parse(localStorage.getItem('folders'))
-        let folder = folders.find( (folder) => folder.id === folderId)
+    } else if (folders.length === 1 && folder !== undefined) {
         const {name} = folder
         return (
             <>

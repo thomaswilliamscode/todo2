@@ -14,7 +14,7 @@ export default function Todos ({listId}) {
         <ul className='ul-container'>
             { todos && filteredTodos.map( (todo) => {
                 return (
-                    <li id='todo' key={todo.id}>
+                    <li className='todo' key={todo.id}>
                         {todo.name}
                         < Delete todoId={todo.id}/>
                     </li>

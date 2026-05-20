@@ -44,7 +44,7 @@ export default function ListPage() {
                 { todos && filteredTodos.map( (todo) => {
                     return (
                         <div key={todo.id}>
-                            <li id='todo'>
+                            <li className='todo'>
                                 <></>
                                 {todo.name}
                                 <Delete todoId={todo.id}/>

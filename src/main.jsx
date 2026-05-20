@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import FolderPage from './pages/folderPage/folderPage'
 import ListPage from './pages/listPage/listPage'
 import Inbox from './sidebar/inbox/inbox'
-import Focus from './components/focus/focus'
+import FocusPage from './pages/focusPage/focusPage'
 import Error from './components/error/error'
 import Layout from './components/layout/layout'
 import AddPage from './pages/addPage/addPage'
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/focus',
-        element: <Focus />,
+        element: <FocusPage />,
       },
       {
         path: '*',

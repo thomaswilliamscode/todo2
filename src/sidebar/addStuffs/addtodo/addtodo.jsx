@@ -17,7 +17,7 @@ export default function AddTodo () {
 
     useEffect( () => {
         setDisplayLists([
-            { name: 'Inbox', list_Id: 'inbox'},
+            { name: 'Inbox', list_Id: 'inbox', id: 'inbox'},
             ...lists
         ])
         setActiveList('inbox')

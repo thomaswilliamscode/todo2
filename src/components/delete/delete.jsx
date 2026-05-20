@@ -8,7 +8,7 @@ import {TodosContext} from '../../context/todosContext'
 import {InboxContext} from '../../context/inboxContext'
 
 
-export default function Delete({todoId, listId, folderId, inboxId}) {
+export default function Delete({todoId, listId, folderId, inboxId, focusInbox, focusTodo}) {
     const { folders, setFolders } = useContext(FolderContext)
     const { lists, setLists } = useContext(ListContext)
     const { todos, setTodos } = useContext(TodosContext)
@@ -67,6 +67,16 @@ export default function Delete({todoId, listId, folderId, inboxId}) {
             setLists(newLists)
             localStorage.setItem('lists', JSON.stringify(newLists))
             
+        }
+
+        if (focusTodo) {
+            table = 'todos'
+            id = focusTodo
+        }
+
+        if(focusInbox) {
+            table='inbox'
+            id = focusInbox
         }
 
         
