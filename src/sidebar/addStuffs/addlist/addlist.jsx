@@ -43,7 +43,9 @@ export default function AddList() {
     setLists(newListData)
     localStorage.setItem('lists', JSON.stringify(newListData))
 
-}
+  }
+
+  if (folders.length > 0) {
     return (
         <div>
             <form onSubmit={formSubmit}>
@@ -64,4 +66,5 @@ export default function AddList() {
             </form>
         </div>
     )
+  }
 }
