@@ -34,12 +34,13 @@ export default function ListPage() {
 
     return (
         <div>
-            <ul className='ul-container'>
-                { currentList && (
-                    <h1>
+            { currentList && (
+                    <h1 className='list-title'>
                         {currentList.name}
                     </h1>
                 )}
+            <ul className='ul-container'>
+                
                 { todos && filteredTodos.map( (todo) => {
                     return (
                         <div key={todo.id}>

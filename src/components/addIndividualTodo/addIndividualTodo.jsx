@@ -3,24 +3,40 @@ import { useState, useContext} from'react'
 import { useParams } from 'react-router-dom'
 import { getData, maxPosition, pushData } from '../../db-logic/db-logic' 
 import {TodosContext} from '../../context/todosContext'
+import {InboxContext} from '../../context/inboxContext'
 
 
-export default function AddIndividualTodo({list}) {
+export default function AddIndividualTodo({list, inbox}) {
     const { todos, setTodos } = useContext(TodosContext)
+    const { setInbox } = useContext(InboxContext)
     const [ input, setInput ] = useState('')
-    const table = 'todos'
+    let table = 'todos'
     const {listId, folderId} = useParams()
 
-    const id = list ? list.id : listId
+    let id = list ? list.id : listId
+
+    if (inbox) {
+        table = 'inbox'
+    }
 
 
     async function handleSubmit(e) {
         e.preventDefault()
         // get todo ready 
-        const newTodo = {
+        let newTodo = {
+
+        }
+        if (inbox) {
+            newTodo = {
+                name: input
+            }
+        } else {
+            newTodo = {
             name: input,
             list_id: id,
+            }
         }
+        
         // reset input value to empty string
         setInput('')
 
@@ -42,10 +58,15 @@ export default function AddIndividualTodo({list}) {
         const todoData = await getData(table)
 
         // set newTodo info 
-        setTodos(todoData)
+        if (inbox) {
+            setInbox(todoData)
+            localStorage.setItem('inbox', JSON.stringify(todoData))
+        } else {
+            setTodos(todoData)
+            //save new todo info to localStorage
+            localStorage.setItem('todos', JSON.stringify(todoData))
+        }
 
-        //save new todo info to localStorage
-        localStorage.setItem('todos', JSON.stringify(todoData))
     }
     function handleChange(id){
 

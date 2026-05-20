@@ -5,18 +5,24 @@ import { deleteItem, getData } from '../../db-logic/db-logic'
 import {FolderContext} from '../../context/folderContext'
 import {ListContext} from '../../context/listContext'
 import {TodosContext} from '../../context/todosContext'
+import {InboxContext} from '../../context/inboxContext'
 
 
-export default function Delete({todoId, listId, folderId}) {
+export default function Delete({todoId, listId, folderId, inboxId}) {
     const { folders, setFolders } = useContext(FolderContext)
     const { lists, setLists } = useContext(ListContext)
     const { todos, setTodos } = useContext(TodosContext)
+    const { inbox, setInbox } = useContext(InboxContext)
     //figure out if deleting a list, todo or folder
     let table = ''
     let id = ''
     
 
     async function onDelete() {
+        if (inboxId) {
+            table='inbox'
+            id = inboxId
+        }
         if (todoId) {
             table = 'todos'
             id = todoId
@@ -80,6 +86,10 @@ export default function Delete({todoId, listId, folderId}) {
 
         if (table === 'folders') {
             setFolders(newData)
+        }
+
+        if (table === 'inbox') {
+            setInbox(newData)
         }
 
         //save new data to localStorage
