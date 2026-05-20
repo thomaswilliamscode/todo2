@@ -38,7 +38,6 @@ export default function ListPage() {
                 { currentList && (
                     <h1>
                         {currentList.name}
-                        <Delete listId={listId}/>
                     </h1>
                 )}
                 { todos && filteredTodos.map( (todo) => {

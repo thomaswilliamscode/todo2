@@ -3,6 +3,7 @@ import {useState, useEffect, useContext} from 'react'
 import { getData } from '../../db-logic/db-logic'
 import { NavLink } from "react-router-dom";
 import {ListContext} from '../../context/listContext'
+import Delete from '../../components/delete/delete'
 
 export default function SidebarLists (props) {
     const {lists, setLists} = useContext(ListContext)
@@ -24,7 +25,7 @@ export default function SidebarLists (props) {
                     key={list.id}
                     to={`/list/${list.id}`}
                     >
-                    <li> {list.name}</li>
+                    <li> {list.name}<Delete listId={list.id}/></li>
                     </NavLink>
                 )
             })}

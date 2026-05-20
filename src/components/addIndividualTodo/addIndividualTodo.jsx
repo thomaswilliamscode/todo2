@@ -41,8 +41,6 @@ export default function AddIndividualTodo({list}) {
         // get new todo info 
         const todoData = await getData(table)
 
-        console.log(todoData)
-
         // set newTodo info 
         setTodos(todoData)
 

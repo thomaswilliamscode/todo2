@@ -9,12 +9,16 @@ export default function AddTodo () {
     const { todos, setTodos } = useContext(TodosContext)
     const [ input, setInput ] = useState([])
     const [ activeList, setActiveList ] = useState('')
+    const [ inbox, setInbox ] = useState('inbox')
 
     const localLists = JSON.parse(localStorage.getItem('lists'))
 
     useEffect( () => {
-        const first = localLists[0]
-        setActiveList(first.id)
+        if(localLists.length > 0) {
+            const first = localLists[0]
+            setActiveList(first.id)
+        }
+        
     }, [])
     
     async function handleSubmit(e) {

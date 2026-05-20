@@ -7,7 +7,7 @@ import {ListContext} from '../../context/listContext'
 import {TodosContext} from '../../context/todosContext'
 
 
-export default function Delete({todoId, listId}) {
+export default function Delete({todoId, listId, folderId}) {
     const { folders, setFolders } = useContext(FolderContext)
     const { lists, setLists } = useContext(ListContext)
     const { todos, setTodos } = useContext(TodosContext)
@@ -36,6 +36,32 @@ export default function Delete({todoId, listId}) {
             setTodos(newTodos)
             localStorage.setItem('todos', JSON.stringify(newTodos))
         }
+        if (folderId) {
+            table = 'folders'
+            id = folderId
+            const foldersArray = JSON.parse(localStorage.getItem(table))
+            const folderInfo = foldersArray.find( (folder) => folder.id === folderId)
+            const folderLists = lists.filter( (list) => list.folder_id === folderInfo.id)
+            let listTodos = [];
+            for (let list of folderLists) {
+                const todoFilter = todos.filter( (todo) => todo.list_id === list.id)
+                listTodos.push(...todoFilter)
+            }
+            for (let todo of listTodos) {
+                await deleteItem('todos', todo.id)
+            }
+            let newTodos = await getData('todos')
+            setTodos(newTodos)
+            localStorage.setItem('todos', JSON.stringify(newTodos))
+
+            for (let list of folderLists) {
+                await deleteItem('lists', list.id)
+            }
+            let newLists = await getData('lists')
+            setLists(newLists)
+            localStorage.setItem('lists', JSON.stringify(newLists))
+            
+        }
 
         
         //delete it
@@ -50,6 +76,10 @@ export default function Delete({todoId, listId}) {
         }
         if(table === 'lists') {
             setLists(newData)
+        }
+
+        if (table === 'folders') {
+            setFolders(newData)
         }
 
         //save new data to localStorage

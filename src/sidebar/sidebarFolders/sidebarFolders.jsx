@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useContext, useState, useEffect } from 'react'
 import { FolderContext } from '../../context/folderContext' 
 import SidebarLists from '../sidebarLists/sidebarLists'
+import Delete from '../../components/delete/delete'
 
 import './sidebarFolders.css'
 
@@ -78,7 +79,7 @@ export default function SidebarFolders () {
                         >
                             
                             
-                            <li>{name}</li>
+                            <li>{name}<Delete folderId={id}/></li>
                       </NavLink>
                       {openFolders.has(id) && (
                         <SidebarLists info={info}/>

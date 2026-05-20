@@ -38,7 +38,7 @@ export default function FolderPage ( ){
                 return (
                     <div key={listId}>
                         <div className='list-name'>
-                            <h1>{name} <Delete listId={listId}/></h1>
+                            <h1>{name}</h1>
                             
                         </div>
                         <div>
