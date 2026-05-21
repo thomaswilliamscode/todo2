@@ -8,8 +8,9 @@
 .ulContainer {
     display: flex;
     flex-direction: column;
-    text-align: center;
     gap: 0.5rem;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .todo{
@@ -23,7 +24,20 @@
 
 
 .addTodo {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5rem;
     margin-top: 2rem;
     margin-right: 5rem;
+
 }
+
+.skip {
+    border-radius: 9px;
+    padding: 0.75rem 0.75rem;
+}
+
+.skip:hover {
+    cursor: pointer;
+}
+

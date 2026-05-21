@@ -14,9 +14,9 @@ export default function Todos ({listId}) {
         <ul className={styles.ulContainer}>
             { todos && filteredTodos.map( (todo) => {
                 return (
-                    <div className={styles.todoContainer}>
+                    <div className={styles.todoContainer} key={todo.id}>
                         <span></span>
-                        <li className={styles.todo} key={todo.id}>
+                        <li className={styles.todo} >
                             {todo.name}
                             
                         </li>

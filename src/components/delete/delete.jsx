@@ -8,7 +8,7 @@ import {TodosContext} from '../../context/todosContext'
 import {InboxContext} from '../../context/inboxContext'
 
 
-export default function Delete({todoId, listId, folderId, inboxId, focusInbox, focusTodo}) {
+export default function Delete({todoId, listId, folderId, inboxId, focusPageId, focusTodo, onDeleteSuccess}) {
     const { folders, setFolders } = useContext(FolderContext)
     const { lists, setLists } = useContext(ListContext)
     const { todos, setTodos } = useContext(TodosContext)
@@ -74,9 +74,21 @@ export default function Delete({todoId, listId, folderId, inboxId, focusInbox, f
             id = focusTodo
         }
 
-        if(focusInbox) {
-            table='inbox'
-            id = focusInbox
+        if(focusPageId) {
+            const localInbox = JSON.parse(localStorage.getItem('inbox'))
+            const localTodos = JSON.parse(localStorage.getItem('todos'))
+            const filteredInbox = localInbox.find( (obj) => obj.id === focusPageId)
+            if (filteredInbox) {
+                table='inbox'
+                
+            } 
+            const filteredTodos = localTodos.find( (obj) => obj.id === focusPageId)
+            if (filteredTodos) {
+                    table='todos'
+            }
+            console.log('nope')
+            id = focusPageId
+
         }
 
         
@@ -104,6 +116,10 @@ export default function Delete({todoId, listId, folderId, inboxId, focusInbox, f
 
         //save new data to localStorage
         localStorage.setItem(table, JSON.stringify(newData))
+
+        if (focusPageId && onDeleteSuccess) {
+            onDeleteSuccess()
+        }
     }
 
 
