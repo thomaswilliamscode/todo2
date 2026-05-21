@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { getData } from '../../db-logic/db-logic'
-import './folderPage.css'
+import styles from './folderPage.module.css'
 import Todos from '../../components/todos/todos'
 import { useContext, useState, useEffect } from 'react'
 import { ListContext } from '../../context/listContext' 
@@ -45,15 +45,18 @@ export default function FolderPage ( ){
             {list && filtered.map( (list) => { 
                 const {id: listId, name, folder_id} = list
                 return (
-                    <div key={listId}>
-                        <div className='list-name'>
+                    <div key={listId} className={styles.container}>
+                        <div className={styles.listName}>
                             <h1>{name}</h1>
                             
                         </div>
-                        <div>
+                        <div className={styles.todosContainer}>
                             <Todos listId={listId}/>
                         </div>
-                        < AddIndividualTodo list={list}/>
+                        <div className={styles.addTodo}>
+                            < AddIndividualTodo list={list}/>
+                        </div>
+                        
                     </div>
                     
                 )

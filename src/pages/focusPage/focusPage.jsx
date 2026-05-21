@@ -27,7 +27,9 @@ export default function FocusPage () {
                 {todos && todos.map( (todo) => {
                     const {id, name} = todo
                     return (
-                        <li className={styles.todo} key={id}>{name}
+                        <li className={styles.todo} key={id}>
+                            <span></span>
+                            {name}
                             < Delete focusTodo={id}/>
                         </li>
                     )

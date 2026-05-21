@@ -1,0 +1,13 @@
+
+
+.listName{
+    text-align: center;
+    border-bottom: 1px dotted gray;
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
+
+.addTodo{
+    margin-right: 2rem;
+}
+    

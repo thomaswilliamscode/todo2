@@ -108,11 +108,11 @@ export default function Delete({todoId, listId, folderId, inboxId, focusInbox, f
 
 
     return (
-        <>
+        <span>
             <button
             className={styles.deleteButton}
             onClick={ () => onDelete()}
             >Delete</button>
-        </>
+        </span>
     )
 }

@@ -1,4 +1,4 @@
-import './sidebarLists.css'
+import styles from './sidebarLists.module.css'
 import {useState, useEffect, useContext} from 'react'
 import { getData } from '../../db-logic/db-logic'
 import { NavLink } from "react-router-dom";
@@ -18,14 +18,14 @@ export default function SidebarLists (props) {
     }, [lists])
 
     return (
-        <ul id='list-container'>
+        <ul className={styles.listContainer}>
             {lists && listFilter.map( (list) => {
                     return (
                     <NavLink
                     key={list.id}
                     to={`/list/${list.id}`}
                     >
-                    <li> {list.name}<Delete listId={list.id}/></li>
+                    <li className={styles.sidebarListsLi}> {list.name}<Delete listId={list.id}/></li>
                     </NavLink>
                 )
             })}
