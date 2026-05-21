@@ -1,4 +1,4 @@
-import './focusPage.css'
+import styles from './focusPage.module.css'
 import {TodosContext} from '../../context/todosContext'
 import { useState, useEffect, useContext} from 'react'
 import Delete from '../../components/delete/delete'
@@ -10,29 +10,34 @@ export default function FocusPage () {
     const { inbox, setInbox } = useContext(InboxContext)
     return (
         <>
-            <h1 className='list-title'>Focus Page</h1>
-            <ul className='ul-container'>
+            <h1 className={styles.listTitle}>Focus Page</h1>
+            <ul className={styles.ulContainer}>
                 {inbox && inbox.map( (todo) => {
                     const { id, name} = todo
                     return (
                         <li 
-                        className='todo'
-                        key={id}>{name}
-                        < Delete focusInbox={id}/>
+                        className={styles.todo}
+                        key={id}>
+                            <span></span>
+                            {name}
+                            < Delete focusInbox={id}/>
                         </li>
                     )
                 })}
                 {todos && todos.map( (todo) => {
                     const {id, name} = todo
                     return (
-                        <li className='todo' key={id}>{name}
+                        <li className={styles.todo} key={id}>{name}
                             < Delete focusTodo={id}/>
                         </li>
                     )
                     
                 })}
-                <AddIndividualTodo inbox={'inbox'}/>
+                
             </ul>
+            <div className={styles.addTodo}>
+                <AddIndividualTodo inbox={'inbox'}/>
+            </div>
         </>
     )
 }

@@ -1,4 +1,4 @@
-import './addIndividualTodo.css'
+import styles from './addIndividualTodo.module.css'
 import { useState, useContext} from'react'
 import { useParams } from 'react-router-dom'
 import { getData, maxPosition, pushData } from '../../db-logic/db-logic' 
@@ -76,15 +76,17 @@ export default function AddIndividualTodo({list, inbox}) {
             <form
             value={id}
             onSubmit={(e)=> handleSubmit(e)}
+            className={styles.form}
             >
                 <input 
                 type='text'
                 placeholder='Todo Name'
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                className={styles.todoName}
                 />
 
-                <input type='submit'/>
+                <input className={styles.submit} type='submit'/>
 
             </form>
         </>

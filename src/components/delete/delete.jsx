@@ -1,4 +1,4 @@
-import './delete.css'
+import styles from './delete.module.css'
 import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { deleteItem, getData } from '../../db-logic/db-logic'
@@ -110,6 +110,7 @@ export default function Delete({todoId, listId, folderId, inboxId, focusInbox, f
     return (
         <>
             <button
+            className={styles.deleteButton}
             onClick={ () => onDelete()}
             >Delete</button>
         </>
