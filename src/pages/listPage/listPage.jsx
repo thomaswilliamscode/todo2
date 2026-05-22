@@ -1,4 +1,4 @@
-import './listPage.css'
+import styles from './listPage.module.css'
 import {getData} from '../../db-logic/db-logic'
 import {useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
@@ -35,17 +35,19 @@ export default function ListPage() {
     return (
         <div>
             { currentList && (
-                    <h1 className='list-title'>
+                    <h1 className={styles.listName}>
                         {currentList.name}
                     </h1>
                 )}
-            <ul className='ul-container'>
+            <ul className={styles.ulContainer}>
                 
                 { todos && filteredTodos.map( (todo) => {
                     return (
-                        <div key={todo.id}>
-                            <li className='todo'>
-                                <></>
+                        <div key={todo.id}
+                            className={styles.todoContainer}
+                        >
+                            <li className={styles.todoItem}>
+                                <span></span>
                                 {todo.name}
                                 <Delete todoId={todo.id}/>
                             </li>
@@ -53,8 +55,11 @@ export default function ListPage() {
                         </div>
                     )
                 })}
-                <AddIndividualTodo list={currentList}/>
+                
             </ul>
+            <div className={styles.addTodo}>
+                <AddIndividualTodo list={currentList}/>
+            </div>
             
         </div>
 

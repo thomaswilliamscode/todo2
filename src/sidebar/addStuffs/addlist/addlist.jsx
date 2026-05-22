@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react'
 import { pushData, maxPosition, getData } from '../../../db-logic/db-logic'
 import { ListContext } from '../../../context/listContext'
 import { FolderContext } from '../../../context/folderContext'
+import styles from './addlist.module.css'
 
 const table = 'lists'
 
@@ -48,21 +49,34 @@ export default function AddList() {
   if (folders.length > 0) {
     return (
         <div>
-            <form onSubmit={formSubmit}>
-                <input type='text' 
+            <form onSubmit={formSubmit}
+              className={styles.form}
+            >
+              <p>Add A List</p>
+              <div className= {styles.inputDiv}>
+                <input 
+                  className={styles.input}
+                  type='text' 
                   value={listName}
                   onChange={(e) => setListName((e.target.value))}
                   placeholder='List Name'/>
-                <input type='submit' value='Submit'/>
-                <select onChange={(e)=> setActiveFolder(e.target.value)}>
+                <input type='submit' value='Submit' className={styles.input}/>
+                <select onChange={(e)=> setActiveFolder(e.target.value)}
+                  
+                >
+                  
                   {folders && folders.map( (folder, index) => {
                     const { name, id} = folder;
-                    return (
-                      <option key={id} value={id}>{name}</option>
+                    return ( 
+                      <div className={styles.optionDiv}>
+                        <p>To The </p>
+                        <option key={id}  value={id} className={styles.option}  >{name}</option>
+                      </div>
                     )  
                   })}
                   
                 </select>
+              </div>
             </form>
         </div>
     )

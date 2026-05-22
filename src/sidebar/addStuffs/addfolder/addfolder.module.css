@@ -1,0 +1,17 @@
+.form{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.inputDiv{
+    display: flex;
+    gap: 0.25rem;
+    height: 2.5rem;
+   
+}
+
+.input {
+    /* border: 1px solid red; */
+     border-radius: 9px;
+}

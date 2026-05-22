@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { pushData, maxPosition, getData } from '../../../db-logic/db-logic'
 import { FolderContext } from '../../../context/folderContext'
+import styles from './addfolder.module.css'
 
 const table = 'folders'
 
@@ -30,12 +31,23 @@ export default function AddFolder() {
   }
     return (
         <div>
-            <form onSubmit={formSubmit}>
-                <input type='text' 
+            <form onSubmit={formSubmit}
+              className={styles.form}
+            >
+              <p>Add A New Folder</p>
+              <div className={styles.inputDiv}>
+                <input 
+                  className={styles.input}
+                  type='text' 
                   value={folderName}
                   onChange={(e) => setFolderName(e.target.value)}
                   placeholder='Folder Name'/>
-                <input type='submit' value='Submit'/>
+                  <input 
+                    className={styles.input}
+                    type='submit' 
+                    value='Submit'
+                  />
+                </div>
             </form>
         </div>
     )

@@ -62,7 +62,7 @@ export default function FolderPage ( ){
                 )
             }
             )}
-            <div>
+            <div className={styles.addList}>
                 <AddIndividualList folderId={folderId}/>
             </div>
         </div>
