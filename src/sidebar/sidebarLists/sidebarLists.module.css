@@ -1,0 +1,19 @@
+.listContainer{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.sidebarListsLi{
+    /* border: 1px solid red; */
+    background-color: rgb(80, 75, 75);
+     border-radius: 999px;
+     display: flex;
+     justify-content: space-between;
+     gap: 2rem;
+     padding: 0.5rem 2rem;
+
+}
+

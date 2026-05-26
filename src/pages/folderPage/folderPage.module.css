@@ -1,0 +1,20 @@
+
+
+.listName{
+    text-align: center;
+    border-bottom: 1px dotted gray;
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
+
+.addTodo{
+    margin-right: 2rem;
+}
+    
+.addList {
+    border-top: 1px dotted rgb(214, 198, 198);
+    display: flex;
+    justify-content: center;
+    padding-top: 5rem;
+    margin-top: 5rem;
+}

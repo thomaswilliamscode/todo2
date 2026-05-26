@@ -4,15 +4,16 @@ import { NavLink } from "react-router-dom";
 import { useContext, useState, useEffect } from 'react'
 import { FolderContext } from '../../context/folderContext' 
 import SidebarLists from '../sidebarLists/sidebarLists'
+import Delete from '../../components/delete/delete'
 
-import './sidebarFolders.css'
+import styles from './sidebarFolders.module.css'
 
 export default function SidebarFolders () {
     
     const { getFolders, setGetFolders } = useContext(FolderContext)
     const type = 'folders'
     const { folders, setFolders } = useContext(FolderContext)
-    const [ openFolders, setOpenFolders ] = useState(new Set())
+    const [ openFolders, setOpenFolders ] = useState([])
 
     useEffect( () => {
         if (getFolders === 'get') {
@@ -26,71 +27,60 @@ export default function SidebarFolders () {
         }
     }, [getFolders])
 
-    function toggleHidden (info) {
-        setOpenFolders( prev => {
-            const updated = new Set(prev)
-            // if openFolders contains the obj, remove it
-            if(updated.has(info.id)) {
-                updated.delete(info.id)
+    function toggleHidden(id) {
+        setOpenFolders(prev => {
+            if (prev.includes(id)) {
+                return prev.filter(item => item !== id)
             } else {
-                //if it doesnt, then add it
-                updated.add(info.id)
+                return [...prev, id]
             }
-
-            return updated
         })
-        
-        
-    }
-
-    function displayOpenFolders (folderId) {
-        const filtered = folders.filter( (folderObj) => {
-            console.log(openFolders.has(folderObj))
-            console.log(openFolders)
-            return openFolders.has(folderObj)
-        })
-
-        return filtered.map( (obj) => {
-            console.log(obj)
-        })
-                        
     }
     
     return (
-        <>
-            {folders && folders.map( (info) => {
+        <div className={styles.container}>
+            {folders.length > 0 && folders.map( (info) => {
                 let { name, id } = info
                 return (
-                    <div key={id} id='sidebar-folder-div'>
-                        <div></div>
-                        <i className="fa-solid fa-chevron-down"
-                            onClick={() => toggleHidden(info)}
-                        ></i>
+                    <div key={id} className={styles.sidebarFolderDiv}>
 
-                        <div className='folder-row'>
-                        
-                        <NavLink
-                            to={`/folder/${id}`}
-                            end
-                            className={({ isActive }) =>
-                            isActive ? "sidebar-folder active" : "sidebar-folder"
-                            }
-                        >
+                        <div className={styles.folderRow}>
                             
+                            {openFolders.includes(id) ? 
+                                (<i
+                                className="fa-solid fa-chevron-down"
+                                onClick={() => toggleHidden(id)}
+                            />) :  (<i
+                                className="fa-solid fa-chevron-up"
+                                onClick={() => toggleHidden(id)}
+                            />)}
                             
-                            <li>{name}</li>
-                      </NavLink>
-                      {openFolders.has(id) && (
-                        <SidebarLists info={info}/>
-                      )}
-                        
+
+                            <NavLink
+                                to={`/folder/${id}`}
+                                end
+                                className={styles.link}
+                            >
+                                {name}
+                            </NavLink>
+
+                            <span className={styles.deleteButton}>
+                                <Delete folderId={id} />
+                            </span>
+
                         </div>
-                        <div></div>
+
+                        {openFolders.includes(id) && (
+                            <div className={styles.openLists}>
+                                <SidebarLists info={info} />
+                            </div>
+                        )}
+
                     </div>
                     
                 )
                 })
             }
-        </>
+        </div>
     )
 }

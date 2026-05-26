@@ -1,39 +1,70 @@
-import './listPage.css'
+import styles from './listPage.module.css'
 import {getData} from '../../db-logic/db-logic'
 import {useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import {TodosContext} from '../../context/todosContext' 
 import {ListContext} from '../../context/listContext' 
+import AddIndividualTodo from '../../components/addIndividualTodo/addIndividualTodo'
+import Delete from '../../components/delete/delete.jsx'
 
 export default function ListPage() {
-    const { todos, SetTodos } = useContext(TodosContext)
-    const { lists, setLists } = useContext(ListContext)
-    const { id } = useParams()
+    const { todos, setTodos } = useContext(TodosContext)
+    const { lists, setLists, } = useContext(ListContext)
+    const { listId, folderId } = useParams()
 
     if (!todos || !lists) {
         return <div>Loading...</div>
     }
+    let id = ''
 
-    if (todos && lists) {
-        const filteredTodos = todos.filter( (todo) => todo.list_id === id)
-        const currentList = lists.find( (list) => list.id === id)
-        return (
-            <ul className='ul-container'>
-                <h1>{currentList?.name}</h1>
+    if (listId) {
+        id = listId
+    } else {
+        id = folderId
+    }
+
+    let filteredTodos = todos.filter( (todo) => todo.list_id === id)
+    let currentList = lists.find( (list) => list.id === id)
+
+    useEffect( () => {
+        filteredTodos = todos.filter( (todo) => todo.list_id === id)
+        currentList = lists.find( (list) => list.id === id)
+    }, [todos])
+
+
+    return (
+        <div>
+            { currentList && (
+                    <h1 className={styles.listName}>
+                        {currentList.name}
+                    </h1>
+                )}
+            <ul className={styles.ulContainer}>
+                
                 { todos && filteredTodos.map( (todo) => {
                     return (
-                        <div key={todo.id}>
-                            <li id='todo'>
+                        <div key={todo.id}
+                            className={styles.todoContainer}
+                        >
+                            <li className={styles.todoItem}>
+                                <span></span>
                                 {todo.name}
+                                <Delete todoId={todo.id}/>
                             </li>
+                            
                         </div>
                     )
                 })}
+                
             </ul>
+            <div className={styles.addTodo}>
+                <AddIndividualTodo list={currentList}/>
+            </div>
+            
+        </div>
 
-        
-        )
-    } 
+    
+    )
     
     
 }

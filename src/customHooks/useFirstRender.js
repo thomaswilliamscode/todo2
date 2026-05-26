@@ -17,11 +17,13 @@ export default function useFirstRender() {
             // api call for folders
             const folders = await getData(table)
             setFolders(folders)
+            localStorage.setItem('folders', JSON.stringify(folders))
 
             // api call for lists
             table = 'lists'
             const lists = await getData(table)
             setLists(lists)
+            localStorage.setItem('lists', JSON.stringify(lists))
 
             // api call for todos
             table = 'todos'

@@ -1,0 +1,11 @@
+.bigContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.container {
+    border: 1px solid red;
+    width: 100%;
+}
