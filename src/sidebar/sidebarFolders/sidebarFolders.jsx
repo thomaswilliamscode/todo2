@@ -5,6 +5,12 @@ import { useContext, useState, useEffect } from 'react'
 import { FolderContext } from '../../context/folderContext' 
 import SidebarLists from '../sidebarLists/sidebarLists'
 import Delete from '../../components/delete/delete'
+import { handleDragEnd } from '../../helpers/helpers'
+import {
+  DragDropContext,
+  Droppable,
+  Draggable
+} from "@hello-pangea/dnd";
 
 import styles from './sidebarFolders.module.css'
 
@@ -36,51 +42,74 @@ export default function SidebarFolders () {
             }
         })
     }
+
+    function onDragEnd(result) {
+        handleDragEnd(result, 'folders', folders, setFolders)
+    }
     
     return (
         <div className={styles.container}>
-            {folders.length > 0 && folders.map( (info) => {
-                let { name, id } = info
-                return (
-                    <div key={id} className={styles.sidebarFolderDiv}>
-
-                        <div className={styles.folderRow}>
-                            
-                            {openFolders.includes(id) ? 
-                                (<i
-                                className="fa-solid fa-chevron-down"
-                                onClick={() => toggleHidden(id)}
-                            />) :  (<i
-                                className="fa-solid fa-chevron-up"
-                                onClick={() => toggleHidden(id)}
-                            />)}
-                            
-
-                            <NavLink
-                                to={`/folder/${id}`}
-                                end
-                                className={styles.link}
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId='folders'>
+                    { (provided) => (
+                        <div className={styles.containerDiv}
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
                             >
-                                {name}
-                            </NavLink>
+                            {folders.map((info, index) => {
+                                const { name, id } = info;
 
-                            <span className={styles.deleteButton}>
-                                <Delete folderId={id} />
-                            </span>
+                                return (
+                                    <Draggable key={id} draggableId={id} index={index}>
+                                    {(provided) => (
+                                        <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        className={styles.sidebarFolderDiv}
+                                        >
+                                        <div className={styles.folderRow}>
+                                            
+                                            {openFolders.includes(id) ? (
+                                            <i
+                                                className="fa-solid fa-chevron-down"
+                                                onClick={() => toggleHidden(id)}
+                                            />
+                                            ) : (
+                                            <i
+                                                className="fa-solid fa-chevron-up"
+                                                onClick={() => toggleHidden(id)}
+                                            />
+                                            )}
 
+                                            <NavLink
+                                            to={`/folder/${id}`}
+                                            end
+                                            className={styles.link}
+                                            >
+                                            {name}
+                                            </NavLink>
+
+                                            <span className={styles.deleteButton}>
+                                            <Delete folderId={id} />
+                                            </span>
+                                        </div>
+
+                                        {openFolders.includes(id) && (
+                                            <div className={styles.openLists}>
+                                            <SidebarLists info={info} />
+                                            </div>
+                                        )}
+                                        </div>
+                                    )}
+                                    </Draggable>
+                                );
+                                })}
+                            {provided.placeholder}
                         </div>
-
-                        {openFolders.includes(id) && (
-                            <div className={styles.openLists}>
-                                <SidebarLists info={info} />
-                            </div>
-                        )}
-
-                    </div>
-                    
-                )
-                })
-            }
+                    )}
+                </Droppable>
+            </DragDropContext>
         </div>
     )
 }
