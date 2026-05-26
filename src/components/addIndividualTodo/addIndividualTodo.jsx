@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { getData, maxPosition, pushData } from '../../db-logic/db-logic' 
 import {TodosContext} from '../../context/todosContext'
 import {InboxContext} from '../../context/inboxContext'
+import {capital} from '../../helpers/helpers' 
 
 
 export default function AddIndividualTodo({list, inbox}) {
@@ -22,17 +23,18 @@ export default function AddIndividualTodo({list, inbox}) {
 
     async function handleSubmit(e) {
         e.preventDefault()
+        let newName = capital(input)
         // get todo ready 
         let newTodo = {
 
         }
         if (inbox) {
             newTodo = {
-                name: input
+                name: newName
             }
         } else {
             newTodo = {
-            name: input,
+            name: newName,
             list_id: id,
             }
         }

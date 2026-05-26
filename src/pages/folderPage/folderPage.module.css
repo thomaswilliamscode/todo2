@@ -1,5 +1,9 @@
 
 
+.container{
+    margin: 5rem 0;
+}
+
 .listName{
     text-align: center;
     border-bottom: 1px dotted gray;

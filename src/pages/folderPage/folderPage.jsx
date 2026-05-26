@@ -41,7 +41,7 @@ export default function FolderPage ( ){
 
     if (filtered.length !== 0 && folders.length !== 0) {
         return (
-        <div>
+        <div className={styles.container}>
             {list && filtered.map( (list) => { 
                 const {id: listId, name, folder_id} = list
                 return (

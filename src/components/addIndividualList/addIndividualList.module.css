@@ -1,0 +1,14 @@
+.form {
+    display: flex;
+    gap: 0.25rem;
+    height: 2rem;
+    padding-left: 1rem;
+}
+
+.input{
+    border-radius: 12px;
+}
+
+.listAdd{
+    padding-left: 1rem;
+}

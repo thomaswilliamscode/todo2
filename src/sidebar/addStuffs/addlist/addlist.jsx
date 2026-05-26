@@ -63,16 +63,15 @@ export default function AddList() {
                   placeholder='List Name'/>
                 <input type='submit' value='Submit' className={styles.input}/>
                 <select onChange={(e)=> setActiveFolder(e.target.value)}
-                className={styles.input}
+                className={`${styles.input} ${styles.optionDiv}`}
                   
                 >
                   
                   {folders && folders.map( (folder, index) => {
                     const { name, id} = folder;
                     return ( 
-                      <div className={styles.optionDiv}>
-                        <option key={id}  value={id} className={styles.option}  >{name}</option>
-                      </div>
+                      <option key={id} value={id} className={styles.option}  >{name}</option>
+                      
                     )  
                   })}
                   
