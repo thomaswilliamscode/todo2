@@ -3,6 +3,7 @@ import { pushData, maxPosition, getData } from '../../../db-logic/db-logic'
 import { ListContext } from '../../../context/listContext'
 import { FolderContext } from '../../../context/folderContext'
 import styles from './addlist.module.css'
+import { capital } from '../../../helpers/helpers'
 
 const table = 'lists'
 
@@ -26,8 +27,9 @@ export default function AddList() {
   async function formSubmit (e) {
     e.preventDefault()
     // // send list name to database
+    let newListName = capital(listName)
     const newData ={
-      name:listName,
+      name:newListName,
       folder_id: activeFolder
     }
     setListName('')
@@ -52,7 +54,6 @@ export default function AddList() {
             <form onSubmit={formSubmit}
               className={styles.form}
             >
-              <p>Add A List</p>
               <div className= {styles.inputDiv}>
                 <input 
                   className={styles.input}
@@ -62,16 +63,15 @@ export default function AddList() {
                   placeholder='List Name'/>
                 <input type='submit' value='Submit' className={styles.input}/>
                 <select onChange={(e)=> setActiveFolder(e.target.value)}
+                className={`${styles.input} ${styles.optionDiv}`}
                   
                 >
                   
                   {folders && folders.map( (folder, index) => {
                     const { name, id} = folder;
                     return ( 
-                      <div className={styles.optionDiv}>
-                        <p>To The </p>
-                        <option key={id}  value={id} className={styles.option}  >{name}</option>
-                      </div>
+                      <option key={id} value={id} className={styles.option}  >{name}</option>
+                      
                     )  
                   })}
                   

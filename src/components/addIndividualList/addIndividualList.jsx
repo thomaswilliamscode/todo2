@@ -1,7 +1,8 @@
-import './addIndividualList.css'
+import styles from './addIndividualList.module.css'
 import { useState, useContext } from 'react'
 import { getData, pushData, maxPosition } from '../../db-logic/db-logic'
 import {ListContext} from '../../context/listContext'
+import {capital} from '../../helpers/helpers' 
 
 export default function AddIndividualList ({folderId}) {
     const [ input, setInput] = useState('')
@@ -11,10 +12,11 @@ export default function AddIndividualList ({folderId}) {
     async function submitForm (e) {
         let table ='lists'
         e.preventDefault()
+         let newName = capital(input)
         // create data to push 
         let newList = {
             folder_id: folderId,
-            name: input,
+            name: newName,
         }
         // set input to empty 
         setInput('')
@@ -41,13 +43,15 @@ export default function AddIndividualList ({folderId}) {
         localStorage.setItem(table, JSON.stringify(newData))
     }
     return (
-        <form onSubmit={(e) => submitForm(e)}>
+        <form onSubmit={(e) => submitForm(e)}
+        className={styles.form}>
             <input type='text'
             placeholder='List Name'
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            className={`${styles.input} ${styles.listAdd}`}
             />
-            <input type='submit'/>
+            <input type='submit' className={styles.input}/>
         </form>
     )
 }

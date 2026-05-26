@@ -1,6 +1,7 @@
 .form{
     display: flex;
-    gap: 1rem;
+    gap: 0.25rem;
+    height: 2.5rem;
 }
 
 .inputDiv{
