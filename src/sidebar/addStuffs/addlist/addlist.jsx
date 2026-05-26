@@ -3,6 +3,7 @@ import { pushData, maxPosition, getData } from '../../../db-logic/db-logic'
 import { ListContext } from '../../../context/listContext'
 import { FolderContext } from '../../../context/folderContext'
 import styles from './addlist.module.css'
+import { capital } from '../../../helpers/helpers'
 
 const table = 'lists'
 
@@ -26,8 +27,9 @@ export default function AddList() {
   async function formSubmit (e) {
     e.preventDefault()
     // // send list name to database
+    let newListName = capital(listName)
     const newData ={
-      name:listName,
+      name:newListName,
       folder_id: activeFolder
     }
     setListName('')

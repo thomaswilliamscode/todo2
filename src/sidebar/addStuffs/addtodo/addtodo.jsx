@@ -4,6 +4,7 @@ import { ListContext } from '../../../context/listContext'
 import { TodosContext } from '../../../context/todosContext'
 import {InboxContext} from '../../../context/inboxContext'
 import { pushData, maxPosition, getData } from '../../../db-logic/db-logic'
+import { capital } from '../../../helpers/helpers'
 
 export default function AddTodo () {
     const { lists } = useContext(ListContext)
@@ -25,9 +26,10 @@ export default function AddTodo () {
     
     async function handleSubmit(e) {
         e.preventDefault()
+        let todo = capital(input)
         let table = ''
         let newTodo = {
-            name: input
+            name: todo
         }
         // add input to that list 
         if (activeList === 'inbox') {
