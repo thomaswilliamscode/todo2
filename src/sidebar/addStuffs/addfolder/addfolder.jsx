@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import { pushData, maxPosition, getData } from '../../../db-logic/db-logic'
 import { FolderContext } from '../../../context/folderContext'
 import styles from './addfolder.module.css'
+import { capital } from '../../../helpers/helpers'
 
 const table = 'folders'
 
@@ -12,8 +13,9 @@ export default function AddFolder() {
   async function formSubmit (e) {
     e.preventDefault()
     // send folder name to database
+    const newFolderName = capital(folderName)
     const newData ={
-      name:folderName,
+      name:newFolderName,
     }
     setFolderName('')
     let posObj = await maxPosition(table)
@@ -34,7 +36,6 @@ export default function AddFolder() {
             <form onSubmit={formSubmit}
               className={styles.form}
             >
-              <p>Add A New Folder</p>
               <div className={styles.inputDiv}>
                 <input 
                   className={styles.input}
