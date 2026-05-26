@@ -52,7 +52,6 @@ export default function AddList() {
             <form onSubmit={formSubmit}
               className={styles.form}
             >
-              <p>Add A List</p>
               <div className= {styles.inputDiv}>
                 <input 
                   className={styles.input}
@@ -62,6 +61,7 @@ export default function AddList() {
                   placeholder='List Name'/>
                 <input type='submit' value='Submit' className={styles.input}/>
                 <select onChange={(e)=> setActiveFolder(e.target.value)}
+                className={styles.input}
                   
                 >
                   
@@ -69,7 +69,6 @@ export default function AddList() {
                     const { name, id} = folder;
                     return ( 
                       <div className={styles.optionDiv}>
-                        <p>To The </p>
                         <option key={id}  value={id} className={styles.option}  >{name}</option>
                       </div>
                     )  

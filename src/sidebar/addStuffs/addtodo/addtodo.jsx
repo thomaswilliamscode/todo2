@@ -68,14 +68,19 @@ export default function AddTodo () {
         setInput(e.target.value)
     }
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={(e) => handleSubmit(e)}
+            className={styles.form}
+        >
             <input type='text' 
+            className={styles.input}
             placeholder='Todo Name' 
             value={input}
             onChange={ (e) => handleChange(e)}
             />
-            <input type='submit'/>
-            <select onChange={ (e) => setActiveList(e.target.value)}>
+            <input type='submit'
+            className={styles.input}/>
+            <select onChange={ (e) => setActiveList(e.target.value)}
+                className={styles.input}>
                 {lists && displayLists.map( (list) => {
                     return (
                         <option key={list.id}

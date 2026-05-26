@@ -34,7 +34,6 @@ export default function AddFolder() {
             <form onSubmit={formSubmit}
               className={styles.form}
             >
-              <p>Add A New Folder</p>
               <div className={styles.inputDiv}>
                 <input 
                   className={styles.input}
