@@ -25,22 +25,34 @@ export function capital(string) {
 }
 
 export async function handleDragEnd( result, table, getter, setter ) {
-    console.log(getter)
-    const {destination, source} = result
+    const {destination, source, draggableId, type} = result
 
     if(!destination) return 
 
     if (destination.index === source.index) return
-
-    const updated = [...getter]
-
-    const [moved] = updated.splice(source.index, 1)
-
-    updated.splice(destination.index, 0, moved)
-
-    setter(updated) 
     
-    await updateTable(table, updated)
+    
+
+    if (type === 'folder') {
+        const data = [...getter]
+
+        const [moved] = data.splice(source.index, 1)
+
+        data.splice(destination.index, 0, moved)
+
+        setter(data) 
+        
+        await updateTable(table, data)
+    }
+
+    if (type === "list") {
+        // grab source info 
+        console.log('source', source)
+        console.log('dest', destination)
+    }
+
+    console.log('test')
+    
 
     
     return true

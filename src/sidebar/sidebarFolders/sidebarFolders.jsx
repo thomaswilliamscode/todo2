@@ -3,6 +3,8 @@ import { getData } from '../../db-logic/db-logic'
 import { NavLink } from "react-router-dom";
 import { useContext, useState, useEffect } from 'react'
 import { FolderContext } from '../../context/folderContext' 
+import { ListContext } from '../../context/listContext' 
+import { TodosContext } from '../../context/todosContext' 
 import SidebarLists from '../sidebarLists/sidebarLists'
 import Delete from '../../components/delete/delete'
 import { handleDragEnd } from '../../helpers/helpers'
@@ -16,9 +18,11 @@ import styles from './sidebarFolders.module.css'
 
 export default function SidebarFolders () {
     
-    const { getFolders, setGetFolders } = useContext(FolderContext)
+    const { getFolders, setGetFolders } = useContext(FolderContext) 
     const type = 'folders'
     const { folders, setFolders } = useContext(FolderContext)
+    const { lists, setLists } = useContext(ListContext)
+    const { todos, setTodos } = useContext(TodosContext)
     const [ openFolders, setOpenFolders ] = useState([])
 
     useEffect( () => {
@@ -44,13 +48,34 @@ export default function SidebarFolders () {
     }
 
     function onDragEnd(result) {
-        handleDragEnd(result, 'folders', folders, setFolders)
+        const { type } = result
+        let table;
+        let getter;
+        let setter;
+        if (type === 'folder') {
+            table = 'folders'
+            getter = folders
+            setter = setFolders
+        }
+        if (type === 'list') {
+            table = 'lists'
+            getter = lists
+            setter = setLists
+        }
+        if (type === 'todo') {
+            table = 'todos'
+            getter = todos
+            setter = setTodos
+        }
+        handleDragEnd(result, table, getter, setter)
     }
     
     return (
         <div className={styles.container}>
             <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId='folders'>
+                <Droppable droppableId='folders'
+                    type='folder'
+                >
                     { (provided) => (
                         <div className={styles.containerDiv}
                             ref={provided.innerRef}
