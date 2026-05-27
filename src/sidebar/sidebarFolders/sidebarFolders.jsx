@@ -54,17 +54,17 @@ export default function SidebarFolders () {
         let setter;
         if (type === 'folder') {
             table = 'folders'
-            getter = folders
+            getter = folders.map( item => ({...item}))
             setter = setFolders
         }
         if (type === 'list') {
             table = 'lists'
-            getter = lists
+            getter = lists.map( item => ({...item}))
             setter = setLists
         }
         if (type === 'todo') {
             table = 'todos'
-            getter = todos
+            getter = todos.map( item => ({...item}))
             setter = setTodos
         }
         handleDragEnd(result, table, getter, setter)

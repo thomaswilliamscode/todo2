@@ -68,6 +68,7 @@ export default function AddList() {
                 >
                   
                   {folders && folders.map( (folder, index) => {
+                    console.log(folder)
                     const { name, id} = folder;
                     return ( 
                       <option key={id} value={id} className={styles.option}  >{name}</option>

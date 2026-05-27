@@ -12,23 +12,31 @@ export default function AddFolder() {
 
   async function formSubmit (e) {
     e.preventDefault()
+    console.log('submitting')
     // send folder name to database
     const newFolderName = capital(folderName)
+    console.log(newFolderName)
     const newData ={
       name:newFolderName,
     }
+    console.log(newData)
     setFolderName('')
     let posObj = await maxPosition(table)
-    if (posObj === null) {
+    console.log(posObj)
+    if (!posObj) {
       posObj = {
         position: -1
       }
     }
     const {position} = posObj
     newData.position = position + 1;
-    await pushData(newData, table)
-    let newFolders = await getData(table)
-    setFolders(newFolders)
+
+    const insertedFolder = await pushData(newData, table)
+
+    setFolders(prev => [
+      ...prev,
+      insertedFolder
+    ])
     localStorage.setItem('folders', JSON.stringify(newFolders))
   }
     return (

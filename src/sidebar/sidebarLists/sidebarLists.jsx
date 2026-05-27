@@ -16,11 +16,7 @@ export default function SidebarLists (props) {
     const {id, name, position} = props.info
     const table = 'lists'
 
-    let listFilter = lists.filter( (list) => list.folder_id === id)
-
-    useEffect( () => {
-        listFilter = lists.filter( (list) => list.folder_id === id)
-    }, [lists])
+    const listFilter = lists.filter( (list) => list.folder_id === id)
 
 
     return (

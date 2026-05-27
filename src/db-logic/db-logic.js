@@ -50,7 +50,15 @@ export async function pushData(addData, table) {
 
 }
 
-export async function  maxPosition (table) {
+export async function  maxPosition (table, id) {
+    let column = null;
+    
+    if (table === 'lists') {
+        column = 'folder_id'
+    }
+    if (table === 'todos') {
+        column = 'list_id'
+    }
 
     const query = supabase
         .from(table)
@@ -58,6 +66,10 @@ export async function  maxPosition (table) {
         .order('position', {ascending: false})
         .limit(1)
         .maybeSingle()
+
+        if (column && id) {
+            query = query.eq(column, id)
+        }
 
     const { data, error} = await query
 
