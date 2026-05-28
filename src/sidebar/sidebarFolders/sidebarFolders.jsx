@@ -18,24 +18,11 @@ import styles from './sidebarFolders.module.css'
 
 export default function SidebarFolders () {
     
-    const { getFolders, setGetFolders } = useContext(FolderContext) 
     const type = 'folders'
     const { folders, setFolders } = useContext(FolderContext)
     const { lists, setLists } = useContext(ListContext)
     const { todos, setTodos } = useContext(TodosContext)
     const [ openFolders, setOpenFolders ] = useState([])
-
-    useEffect( () => {
-        if (getFolders === 'get') {
-            const fetchFolders = async () => {
-            const data = await getData(type);
-            setFolders(data)
-            localStorage.setItem('folders', JSON.stringify(data))
-            setGetFolders('got')
-            }
-        fetchFolders()
-        }
-    }, [getFolders])
 
     function toggleHidden(id) {
         setOpenFolders(prev => {
@@ -61,6 +48,7 @@ export default function SidebarFolders () {
             table = 'lists'
             getter = lists.map( item => ({...item}))
             setter = setLists
+            console.log(getter, 'getter')
         }
         if (type === 'todo') {
             table = 'todos'

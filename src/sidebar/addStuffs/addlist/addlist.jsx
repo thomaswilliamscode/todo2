@@ -33,7 +33,7 @@ export default function AddList() {
       folder_id: activeFolder
     }
     setListName('')
-    let posObj = await maxPosition(table)
+    let posObj = await maxPosition(table, activeFolder)
     if (posObj === null) {
       posObj = {
         position: -1
@@ -41,8 +41,9 @@ export default function AddList() {
     }
     const {position} = posObj
     newData.position = position + 1;
+    console.log('newData: ', newData)
     await pushData(newData, table)
-    const newListData = await getData('lists')
+    const newListData = await getData(table)
     setLists(newListData)
     localStorage.setItem('lists', JSON.stringify(newListData))
 
@@ -68,7 +69,6 @@ export default function AddList() {
                 >
                   
                   {folders && folders.map( (folder, index) => {
-                    console.log(folder)
                     const { name, id} = folder;
                     return ( 
                       <option key={id} value={id} className={styles.option}  >{name}</option>

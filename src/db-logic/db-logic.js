@@ -30,7 +30,7 @@ export async function getData (type, id) {
 export async function pushData(addData, table) {
     const { name, position } = addData
 
-    let payload = {name, position }
+    let payload = {name, position: position ?? 0 }
 
     if (addData?.folder_id) {
         payload.folder_id = addData.folder_id
@@ -48,6 +48,31 @@ export async function pushData(addData, table) {
 
     if (error) throw error;
 
+
+}
+
+export async function updateData (updates, table) {
+    await Promise.all(
+        updates.map( (itemObj) => {
+            const { position, name, id} = updates
+            const payload = {
+                position, name
+            }
+
+            if (updates?.folder_id) {
+                payload.folder_id = updates.folder_id
+            }
+
+            if(updates?.list_id) {
+                payload.list_id = updates.list_id
+            }
+
+            return supabase
+                .from(table)
+                .update(payload)
+                .eq('id', updates.id)
+        })
+    )
 }
 
 export async function  maxPosition (table, id) {
@@ -60,7 +85,7 @@ export async function  maxPosition (table, id) {
         column = 'list_id'
     }
 
-    const query = supabase
+    let query = supabase
         .from(table)
         .select('position')
         .order('position', {ascending: false})
