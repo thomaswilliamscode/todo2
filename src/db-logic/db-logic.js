@@ -54,23 +54,23 @@ export async function pushData(addData, table) {
 export async function updateData (updates, table) {
     await Promise.all(
         updates.map( (itemObj) => {
-            const { position, name, id} = updates
+            const { position, id} = itemObj
             const payload = {
-                position, name
+                position,
             }
 
-            if (updates?.folder_id) {
-                payload.folder_id = updates.folder_id
+            if (itemObj?.folder_id) {
+                payload.folder_id = itemObj.folder_id
             }
 
-            if(updates?.list_id) {
-                payload.list_id = updates.list_id
+            if(itemObj?.list_id) {
+                payload.list_id = itemObj.list_id
             }
 
             return supabase
                 .from(table)
                 .update(payload)
-                .eq('id', updates.id)
+                .eq('id', id)
         })
     )
 }

@@ -31,7 +31,7 @@ export async function handleDragEnd( result, table, getter, setter ) {
 
     if(!destination) return 
 
-    if (destination.index === source.index) return
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return
     
     
 
@@ -48,11 +48,13 @@ export async function handleDragEnd( result, table, getter, setter ) {
     }
 
 
+
     if (type === "list") {
 
         const sourceFolder = source.droppableId.replace('lists-', '')
         const destFolder = destination.droppableId.replace('lists-', '')
         const destIndex = destination.index
+        
 
         if (sourceFolder === destFolder) {
             //  copy
@@ -67,16 +69,12 @@ export async function handleDragEnd( result, table, getter, setter ) {
             // find dragged item
             const draggedList = sourceLists.find(list => list.id === draggableId)
 
-            console.log('sourcecLists: ', sourceLists)
             // remove list from source folder
             const remainingLists = sourceLists.filter(
                 list => list.id !== draggedList.id
             )
-            console.log('draggedList: ', draggedList)
-            console.log('remainingLists: ', remainingLists)
 
-
-            // // update moved list
+            // update moved list
             // movedList.folder_id = destFolder
 
             // insert into new position
@@ -88,16 +86,11 @@ export async function handleDragEnd( result, table, getter, setter ) {
                 position: index
             }))
 
-            console.log('listsNotInFolder: ', listsNotInFolder)
-            console.log('updatedLists: ', updatedLists)
-
             // merge data
             const mergeData = [
                 ...listsNotInFolder,
                 ...updatedLists
             ]
-
-            console.log('mergeData', mergeData)
 
             // update UI immediately
             setter(mergeData)
@@ -114,45 +107,60 @@ export async function handleDragEnd( result, table, getter, setter ) {
                 // source folder lists
                 const sourceLists = data.filter( (listObj) => listObj.folder_id === sourceFolder)
 
-                //dest List
-                const destLists = data.filter ( (listObj) => listObj.folderId === destFolder) 
+                //dest folder Lists
+                const destLists = data.filter ( (listObj) => listObj.folder_id === destFolder) 
+
+                //find rest of list data
+                const rest = data.filter( (listObj) => listObj.folder_id !== sourceFolder && listObj.folder_id !== destFolder)
+               
                 // find dragged item
                 const draggedList = sourceLists.find(list => list.id === draggableId)
 
-                console.log('sourcecLists: ', sourceLists)
+                // console.log('sourcecLists: ', sourceLists)
                 // remove list from source folder
                 const remainingLists = sourceLists.filter(
                     list => list.id !== draggedList.id
                 )
-                console.log('draggedList: ', draggedList)
-                console.log('remainingLists: ', remainingLists)
+                // console.log('draggedList: ', draggedList)
+                // console.log('remainingLists: ', remainingLists)
 
 
-                // // update moved list
-                // movedList.folder_id = destFolder
+                // update dragged list
+                const movedList = {
+                    ...draggedList,
+                    folder_id: destFolder
+                }
 
-                // insert into new position
-                remainingLists.splice(destIndex, 0, draggedList)
+                // insert into dest Folder 
+                const newDestLists = [...destLists]
+                newDestLists.splice(destIndex, 0, movedList)
 
-                // recalculate positions
-                const updatedLists = remainingLists.map((list, index) => ({
+                // recalculate positions on source folder
+                const updatedSource = remainingLists.map((list, index) => ({
                     ...list,
                     position: index
                 }))
 
-                console.log('listsNotInFolder: ', listsNotInFolder)
-                console.log('updatedLists: ', updatedLists)
+                // recalculate positions on dest folder
+                const updatedDest = newDestLists.map((list, index) => ({
+                    ...list,
+                    position: index
+                }))
+
+                // console.log('listsNotInFolder: ', listsNotInFolder)
+                // console.log('updatedLists: ', updatedLists)
 
                 // merge data
                 const mergeData = [
-                    ...listsNotInFolder,
-                    ...updatedLists
+                    ...rest,
+                    ...updatedSource,
+                    ...updatedDest
                 ]
 
-                console.log('mergeData', mergeData)
+                setter(mergeData)
 
                 // update UI immediately
-                setter(mergeData)
+                // setter(mergeData)
 
                 // save localStorage
                 localStorage.setItem(table, JSON.stringify(mergeData))

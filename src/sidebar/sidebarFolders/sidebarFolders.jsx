@@ -48,7 +48,7 @@ export default function SidebarFolders () {
             table = 'lists'
             getter = lists.map( item => ({...item}))
             setter = setLists
-            console.log(getter, 'getter')
+            
         }
         if (type === 'todo') {
             table = 'todos'
