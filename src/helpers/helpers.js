@@ -216,6 +216,7 @@ export async function handleDragEnd( result, table, getter, setter ) {
 
             // update supabase
             await updateData(merged, table)
+            localStorage.setItem('todos', JSON.stringify(todos))
         } else {
              //remove dragged from source list
             const newSourceList = sourceList.filter( (todoObj) => todoObj.id !== dragged.id )
@@ -246,7 +247,8 @@ export async function handleDragEnd( result, table, getter, setter ) {
             setter(merged)
 
             // update supabase
-            await updateData(merged, table)
+            const todos = await updateData(merged, table)
+            localStorage.setItem('todos', JSON.stringify(todos))
         }
     }
 
@@ -273,7 +275,8 @@ export async function handleDragEnd( result, table, getter, setter ) {
 
         setter(rest)
 
-        await updateData(rest, table)
+        const inbox = await updateData(rest, table)
+        localStorage.setItem('inbox', JSON.stringify(inbox))
     }
 }
 

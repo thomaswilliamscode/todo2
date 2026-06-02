@@ -29,11 +29,13 @@ export default function useFirstRender() {
             table = 'todos'
             const todos = await getData(table)  
             setTodos(todos)
+            localStorage.setItem('todos', JSON.stringify(todos))
 
             // api call for inbox
             table = 'inbox'
             const inbox = await getData(table)  
             setInbox(inbox)
+            localStorage.setItem('inbox', JSON.stringify(inbox))
         }
         loadData()
     }, [])

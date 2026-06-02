@@ -14,6 +14,11 @@ export default function FocusPage () {
     useEffect(() => {
         const localInbox = JSON.parse(localStorage.getItem('inbox'))
         const localTodos = JSON.parse(localStorage.getItem('todos'))
+
+        console.log('localInbox', localInbox);
+        console.log('localTodos', localTodos);
+        console.log(Array.isArray(localInbox));
+        console.log(Array.isArray(localTodos));
         const combinedList = [...localInbox, ...localTodos]
 
         if (combinedList.length > 0) {
