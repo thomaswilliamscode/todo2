@@ -16,9 +16,6 @@ export default function FocusPage () {
 
     useEffect(() => {
 
-        console.log('localInbox:', localInbox)
-        console.log('localTodos:', localTodos)
-
         if (localInbox && localTodos) {
             const inboxData = JSON.parse(localInbox)
             const todosData = JSON.parse(localTodos)
