@@ -190,7 +190,7 @@ export async function handleDragEnd( result, table, getter, setter ) {
             //remove dragged from source list
             const newSourceList = sourceList.filter( (todoObj) => todoObj.id !== dragged.id )
             //fix position on each todo
-            newSourceList.map( (todoObj, index) => {
+            const sourcePos = newSourceList.map( (todoObj, index) => {
                 return {...todoObj, position: index}
             })
             // set dragged list_id and position 
@@ -201,27 +201,27 @@ export async function handleDragEnd( result, table, getter, setter ) {
             }
 
             //add dragged to correct index
-            newSourceList.splice(destIndex, 0, moved)
+            sourcePos.splice(destIndex, 0, moved)
 
             //fix position on each todo
-            newSourceList.map( (todoObj, index) => {
+            sourcePos.map( (todoObj, index) => {
                 return {...todoObj, position: index}
             })
             const merged = [
-                ...newSourceList,
+                ...sourcePos,
                 ...rest
             ]
             // update ui
             setter(merged)
-
+            localStorage.setItem('todos', JSON.stringify(merged))
             // update supabase
             await updateData(merged, table)
-            localStorage.setItem('todos', JSON.stringify(todos))
+            
         } else {
              //remove dragged from source list
             const newSourceList = sourceList.filter( (todoObj) => todoObj.id !== dragged.id )
             //fix position on each todo
-            newSourceList.map( (todoObj, index) => {
+            const sourcePos = newSourceList.map( (todoObj, index) => {
                 return {...todoObj, position: index}
             })
             // set dragged list_id and position 
@@ -235,20 +235,20 @@ export async function handleDragEnd( result, table, getter, setter ) {
             destList.splice(destIndex, 0, moved)
 
             //fix position on each todo
-            destList.map( (todoObj, index) => {
+            const destPos = destList.map( (todoObj, index) => {
                 return {...todoObj, position: index}
             })
             const merged = [
-                ...newSourceList,
-                ...destList,
+                ...sourcePos,
+                ...destPos,
                 ...rest
             ]
             // update ui
             setter(merged)
-
+            localStorage.setItem('todos', JSON.stringify(merged))
             // update supabase
-            const todos = await updateData(merged, table)
-            localStorage.setItem('todos', JSON.stringify(todos))
+            await updateData(merged, table)
+            
         }
     }
 
@@ -262,21 +262,21 @@ export async function handleDragEnd( result, table, getter, setter ) {
         let rest = data.filter( (todoObj) => todoObj.id !== draggableId )
 
         // reset positions
-        rest.map( (todoObj, index) => {
+        const restPos = rest.map( (todoObj, index) => {
             return {...todoObj, position: index}
         })
 
         // add it back in the correct index
-        rest.splice(destIndex, 0, dragged)
+        restPos.splice(destIndex, 0, dragged)
 
-        rest.map( (todoObj, index) => {
+        const newRestPos = restPos.map( (todoObj, index) => {
             return {...todoObj, position: index}
         })
 
-        setter(rest)
-
-        const inbox = await updateData(rest, table)
-        localStorage.setItem('inbox', JSON.stringify(inbox))
+        setter(newRestPos)
+        localStorage.setItem('inbox', JSON.stringify(newRestPos))
+        await updateData(newRestPos, table)
+        
     }
 }
 

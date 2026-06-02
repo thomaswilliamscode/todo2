@@ -11,17 +11,20 @@ export default function FocusPage () {
     const [ newList, setNewList] = useState([])
     const [currentList, setCurrentList] = useState([])
 
+    const localInbox = localStorage.getItem('inbox')
+    const localTodos = localStorage.getItem('todos')
+
     useEffect(() => {
-        const localInbox = JSON.parse(localStorage.getItem('inbox'))
-        const localTodos = JSON.parse(localStorage.getItem('todos'))
 
-        console.log('localInbox', localInbox);
-        console.log('localTodos', localTodos);
-        console.log(Array.isArray(localInbox));
-        console.log(Array.isArray(localTodos));
-        const combinedList = [...localInbox, ...localTodos]
+        console.log('localInbox:', localInbox)
+        console.log('localTodos:', localTodos)
 
-        if (combinedList.length > 0) {
+        if (localInbox && localTodos) {
+            const inboxData = JSON.parse(localInbox)
+            const todosData = JSON.parse(localTodos)
+            const combinedList = [...inboxData, ...todosData]
+
+            if (combinedList.length > 0) {
             const firstItem = combinedList[0]
 
             setCurrentList([firstItem])
@@ -29,7 +32,8 @@ export default function FocusPage () {
             // remove first item
             setNewList(combinedList.slice(1))
         }
-    }, [])
+        }
+    }, [localInbox, localTodos])
 
     function nextTask() {
         if (newList.length > 0) {
