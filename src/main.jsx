@@ -24,10 +24,6 @@ const router = createBrowserRouter([
     element: <Layout />,
     children:[
       {
-        path: '/addpage',
-        element: <AddPage />,
-      },
-      {
         path: '/inbox',
         element: <Inbox />,
       },

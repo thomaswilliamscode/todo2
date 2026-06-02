@@ -4,6 +4,11 @@ import { getData } from '../../db-logic/db-logic'
 import { NavLink } from "react-router-dom";
 import {ListContext} from '../../context/listContext'
 import Delete from '../../components/delete/delete'
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+} from "@hello-pangea/dnd";
 
 export default function SidebarLists (props) {
     const {lists, setLists} = useContext(ListContext)
@@ -11,24 +16,49 @@ export default function SidebarLists (props) {
     const {id, name, position} = props.info
     const table = 'lists'
 
-    let listFilter = lists.filter( (list) => list.folder_id === id)
+    const listFilter = lists.filter( (list) => list.folder_id === id)
 
-    useEffect( () => {
-        listFilter = lists.filter( (list) => list.folder_id === id)
-    }, [lists])
 
     return (
-        <ul className={styles.listContainer}>
-            {lists && listFilter.map( (list) => {
-                    return (
-                    <NavLink
-                    key={list.id}
-                    to={`/list/${list.id}`}
-                    >
-                    <li className={styles.sidebarListsLi}> {list.name}<Delete listId={list.id}/></li>
-                    </NavLink>
-                )
-            })}
-        </ul>
+        
+        <Droppable droppableId={`lists-${id}`}
+            type='list'
+        >
+            { (provided) => (
+                <ul className={styles.listContainer}
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                >
+                    {lists && listFilter.map( (list, index) => {
+                            return (
+                                <Draggable
+                                    key={list.id}
+                                    draggableId={String(list.id)}
+                                    index={index}
+                                    >
+                                    {(provided) => (
+                                        <li
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        className={styles.sidebarListsLi}
+                                        >
+                                        <NavLink to={`/list/${list.id}`}>
+                                            {list.name}
+                                        </NavLink>
+
+                                        <Delete listId={list.id} />
+                                        </li>
+                                    )}
+                                </Draggable>
+                        )
+                    })}
+                    {provided.placeholder}
+                </ul>
+            )}
+                
+            
+        </Droppable>
+        
     )
 }

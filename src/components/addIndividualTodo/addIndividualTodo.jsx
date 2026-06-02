@@ -43,7 +43,7 @@ export default function AddIndividualTodo({list, inbox}) {
         setInput('')
 
         // get maxPos from DB
-        let pos = await maxPosition(table)
+        let pos = await maxPosition(table, listId)
         if(pos === null){
             pos = {
                 position: -1

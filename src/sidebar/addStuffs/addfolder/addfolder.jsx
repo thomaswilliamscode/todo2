@@ -19,6 +19,7 @@ export default function AddFolder() {
     }
     setFolderName('')
     let posObj = await maxPosition(table)
+    
     if (posObj === null) {
       posObj = {
         position: -1
@@ -26,10 +27,13 @@ export default function AddFolder() {
     }
     const {position} = posObj
     newData.position = position + 1;
+
     await pushData(newData, table)
-    let newFolders = await getData(table)
-    setFolders(newFolders)
-    localStorage.setItem('folders', JSON.stringify(newFolders))
+
+    const fetchData = await getData(table)
+
+    setFolders(fetchData)
+    localStorage.setItem('folders', JSON.stringify(fetchData))
   }
     return (
         <div>
