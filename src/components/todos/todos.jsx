@@ -3,6 +3,11 @@ import {useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import {TodosContext} from '../../context/todosContext' 
 import Delete from '../delete/delete'
+import {
+  DragDropContext,
+  Droppable,
+  Draggable
+} from "@hello-pangea/dnd";
 
 import styles from './todos.module.css'
 
@@ -11,19 +16,31 @@ export default function Todos ({listId}) {
     const { id } = useParams()
     const filteredTodos = todos.filter( (todo) => todo.list_id === listId)
     return (
+
         <ul className={styles.ulContainer}>
-            { todos && filteredTodos.map( (todo) => {
+            { todos && filteredTodos.map( (todo, index) => {
                 return (
-                    <div className={styles.todoContainer} key={todo.id}>
-                        <span></span>
-                        <li className={styles.todo} >
-                            {todo.name}
-                            
-                        </li>
-                        < Delete todoId={todo.id}/>
-                    </div>
+                    <Draggable key={todo.id} draggableId={todo.id} index={index}>
+                        {(provided) => (
+                            <div className={styles.todoContainer} key={todo.id}
+                                ref = {provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                            >
+                                <span></span>
+                                <li className={styles.todo} >
+                                    {todo.name}
+                                    
+                                </li>
+                                < Delete todoId={todo.id}/>
+                            </div>
+                        )}
+                        
+                    </Draggable>
                 )
             })}
         </ul>
+        
+        
     )
 }

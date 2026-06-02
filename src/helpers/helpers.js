@@ -202,6 +202,8 @@ export async function handleDragEnd( result, table, getter, setter ) {
 
             // update supabase
             await updateData(newListTodos, table)
+        } else {
+            console.log('else')
         }
     }
 }
