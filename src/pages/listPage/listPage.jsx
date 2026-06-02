@@ -62,7 +62,7 @@ export default function ListPage() {
                     </h1>
                 )}
                 <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId='todos'
+                    <Droppable droppableId={`todos-${listId}`}
                         type='todo'
                     >
                         { (provided ) => (

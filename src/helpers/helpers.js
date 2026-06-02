@@ -170,7 +170,39 @@ export async function handleDragEnd( result, table, getter, setter ) {
     }
 
     if (type === 'todo') {
+        // source List
+        const sourceList = source.droppableId.replace('todos-', '')
+        // destList
+        const destList = source.droppableId.replace('todos-', '')
+        //dest Index
+        const destIndex = destination.index
+        // find todo 
+        const dragged = data.find( (todoObj) => todoObj.id === draggableId)
+        console.log(dragged)
         
+        // if list is same 
+        if (sourceList === destList) {
+            //remove dragged from source list
+            const newListTodos = data.filter( (todoObj) => todoObj !== dragged )
+            //fix position on each todo
+            newListTodos.map( (todoObj, index) => {
+                todoObj.postion = index;
+                return todoObj;
+            })
+            //add dragged to correct index
+            newListTodos.splice(destIndex, 0, dragged)
+
+            //fix position on each todo
+            newListTodos.map( (todoObj, index) => {
+                todoObj.position = index;
+                return todoObj;
+            })
+            // update ui
+            setter(newListTodos)
+
+            // update supabase
+            await updateData(newListTodos, table)
+        }
     }
 }
 
