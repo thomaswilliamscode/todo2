@@ -249,6 +249,32 @@ export async function handleDragEnd( result, table, getter, setter ) {
             await updateData(merged, table)
         }
     }
+
+    if (type === 'inbox') {
+        //destIndex 
+        const destIndex = destination.index
+        //find dragged
+        const dragged = data.find( (todoObj) => todoObj.id === draggableId)
+
+        // find the rest 
+        let rest = data.filter( (todoObj) => todoObj.id !== draggableId )
+
+        // reset positions
+        rest.map( (todoObj, index) => {
+            return {...todoObj, position: index}
+        })
+
+        // add it back in the correct index
+        rest.splice(destIndex, 0, dragged)
+
+        rest.map( (todoObj, index) => {
+            return {...todoObj, position: index}
+        })
+
+        setter(rest)
+
+        await updateData(rest, table)
+    }
 }
 
 
