@@ -171,39 +171,82 @@ export async function handleDragEnd( result, table, getter, setter ) {
 
     if (type === 'todo') {
         // source List
-        const sourceList = source.droppableId.replace('todos-', '')
+        const sourceListId = source.droppableId.replace('todos-', '')
         // destList
-        const destList = source.droppableId.replace('todos-', '')
+        const destListId = destination.droppableId.replace('todos-', '')
         //dest Index
         const destIndex = destination.index
         // find todo 
         const dragged = data.find( (todoObj) => todoObj.id === draggableId)
-        console.log(dragged)
+
+        const sourceList = data.filter( (todoObj) => todoObj.list_id === sourceListId)
+        const destList = data.filter( (todoObj) => todoObj.list_id === destListId)
+
+        const rest = data.filter( (todoObj) => todoObj.list_id !== sourceListId && todoObj.list_id !== destListId)
+
         
         // if list is same 
-        if (sourceList === destList) {
+        if (sourceListId === destListId) {
             //remove dragged from source list
-            const newListTodos = data.filter( (todoObj) => todoObj !== dragged )
+            const newSourceList = sourceList.filter( (todoObj) => todoObj.id !== dragged.id )
             //fix position on each todo
-            newListTodos.map( (todoObj, index) => {
-                todoObj.postion = index;
-                return todoObj;
+            newSourceList.map( (todoObj, index) => {
+                return {...todoObj, position: index}
             })
+            // set dragged list_id and position 
+            const moved = {
+                ...dragged,
+                position: destIndex,
+                list_id: destListId
+            }
+
             //add dragged to correct index
-            newListTodos.splice(destIndex, 0, dragged)
+            newSourceList.splice(destIndex, 0, moved)
 
             //fix position on each todo
-            newListTodos.map( (todoObj, index) => {
-                todoObj.position = index;
-                return todoObj;
+            newSourceList.map( (todoObj, index) => {
+                return {...todoObj, position: index}
             })
+            const merged = [
+                ...newSourceList,
+                ...rest
+            ]
             // update ui
-            setter(newListTodos)
+            setter(merged)
 
             // update supabase
-            await updateData(newListTodos, table)
+            await updateData(merged, table)
         } else {
-            console.log('else')
+             //remove dragged from source list
+            const newSourceList = sourceList.filter( (todoObj) => todoObj.id !== dragged.id )
+            //fix position on each todo
+            newSourceList.map( (todoObj, index) => {
+                return {...todoObj, position: index}
+            })
+            // set dragged list_id and position 
+            const moved = {
+                ...dragged,
+                position: destIndex,
+                list_id: destListId
+            }
+
+            //add dragged to correct index
+            destList.splice(destIndex, 0, moved)
+
+            //fix position on each todo
+            destList.map( (todoObj, index) => {
+                return {...todoObj, position: index}
+            })
+            const merged = [
+                ...newSourceList,
+                ...destList,
+                ...rest
+            ]
+            // update ui
+            setter(merged)
+
+            // update supabase
+            await updateData(merged, table)
         }
     }
 }
