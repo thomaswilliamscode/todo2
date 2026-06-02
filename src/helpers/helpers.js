@@ -33,18 +33,19 @@ export async function handleDragEnd( result, table, getter, setter ) {
 
     if (destination.droppableId === source.droppableId && destination.index === source.index) return
     
+    // shallow copy data
+    const data = [...getter]
     
 
     if (type === 'folder') {
-        const data = [...getter]
-
+        
         const [moved] = data.splice(source.index, 1)
 
         data.splice(destination.index, 0, moved)
 
         setter(data) 
         
-        await updateTable(table, data)
+        await updateData(data, table)
     }
 
 
@@ -57,8 +58,6 @@ export async function handleDragEnd( result, table, getter, setter ) {
         
 
         if (sourceFolder === destFolder) {
-            //  copy
-            const data = [...getter]
 
             // find lists not in folder
             const listsNotInFolder = data.filter( (listObj) => listObj.folder_id !== sourceFolder)
@@ -101,8 +100,6 @@ export async function handleDragEnd( result, table, getter, setter ) {
             // update DB positions
             await updateData(mergeData, table)
             } else {
-                 //  copy
-                const data = [...getter]
 
                 // source folder lists
                 const sourceLists = data.filter( (listObj) => listObj.folder_id === sourceFolder)
@@ -169,6 +166,10 @@ export async function handleDragEnd( result, table, getter, setter ) {
                 await updateData(mergeData, table)
                 }
 
+        
+    }
+
+    if (type === 'todo') {
         
     }
 }

@@ -55,8 +55,10 @@ export default function SidebarFolders () {
             getter = todos.map( item => ({...item}))
             setter = setTodos
         }
+        console.log(table)
         handleDragEnd(result, table, getter, setter)
     }
+
     
     return (
         <div className={styles.container}>
